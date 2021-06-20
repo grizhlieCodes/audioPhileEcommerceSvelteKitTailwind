@@ -77,7 +77,7 @@
                 </div>
     
                 <h3 class="uppercase tracking-[1.29px] text-[1.8rem] font-bold">{name}</h3>
-                <Button content="SHOP" btnType="link" link="/{name}" />
+                <Button content="SHOP" btnType="link" link="/product-category/{name}" />
     
             </div>
     
