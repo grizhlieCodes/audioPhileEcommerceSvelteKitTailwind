@@ -6,7 +6,7 @@
 
 	let btnTest = {
 		content: 'Testing',
-		btnType: 'homepage'
+		btnType: 'minimal'
 	};
 
 	let menuOpened = false;
@@ -16,38 +16,12 @@
 </script>
 
 <style>
-	span {
-		transform-origin: 4px 1.2px;
-	}
+	
+
 </style>
 
-<!-- <Button {...btnTest}/> -->
 
-<header class="h-[9rem] bg-black flex justify-center items-center px-[3.2rem] py-[2.4rem]">
-	<div class="inner-container h-full w-full max-w-[111rem] flex items-center justify-between">
-		<div
-			class="menu w-[1.6rem] h-full flex flex-col justify-center items-center gap-y-[3px]
-			cursor-pointer group"
-			on:click={toggleMenu}>
-			<span
-				class="h-[3px] w-full bg-white text-white transition-all group-hover:bg-lightOrange 
-                    {menuOpened ? ' rotate-45 group-hover:translate-x-0' : ''} transform group-hover:translate-x-1" />
-			<span
-				class="h-[3px] w-full bg-white text-white transition-all group-hover:bg-lightOrange 
-                    {menuOpened ? 'hidden' : ''} " />
-			<span
-				class="h-[3px] w-full bg-white text-white transition-all group-hover:bg-lightOrange 
-                    {menuOpened ? ' -rotate-45 group-hover:translate-x-0' : ''} transform group-hover:-translate-x-1" />
-		</div>
-		<div class="logo">
-			<img src="/static/images/shared/desktop/logo.svg" alt="" />
-		</div>
 
-		<div class="cursor-pointer transition-all transform hover:rotate-12">
-			<img src="/static/images/shared/desktop/icon-cart.svg" alt="" />
-		</div>
-	</div>
-</header>
 
 <!-- HOMEPAGE -->
 <!-- TODO:
@@ -69,3 +43,11 @@
 
 
 -->
+
+<!-- 
+
+	class="btn-primary-homepage"
+
+
+	class="btn-primary-large" 
+ -->
