@@ -1,10 +1,12 @@
 <script>
 	import { getContext } from 'svelte';
 	import ProductCatCards from '$lib/navigation/ProductCatCards.svelte';
+	import { fade } from 'svelte/transition';
 
 	let size = getContext('size');
 
 	let menuOpened = false;
+
 	const toggleMenu = () => {
 		menuOpened = !menuOpened;
 	};
@@ -27,6 +29,8 @@
 			link: '/product-category/earphones'
 		}
 	];
+
+	$: if ($size === 'desktop') menuOpened = false;
 </script>
 
 <style>
@@ -61,7 +65,7 @@
 	}
 </style>
 
-<header class="h-[9rem] bg-black flex justify-center items-center px-[3.2rem] py-[2.4rem]">
+<header class="h-[9rem] bg-black flex justify-center items-center px-[3.2rem] py-[2.4rem] z-10">
 	<div class="inner-container h-full w-full max-w-[111rem] flex items-center justify-between">
 
 		{#if $size !== 'desktop'}
@@ -108,9 +112,20 @@
 </header>
 
 {#if $size !== 'desktop'}
-	<div class="mobile-menu-container fixed top-[9rem] w-full left-0 h-auto">
-		{#if menuOpened}
+	{#if menuOpened}
+
+		<div
+			class="mobile-menu-container fixed top-[9rem] w-full left-0 h-auto z-20 bg-white
+			rounded-br-[8px] rounded-bl-[8px] px-[2.4rem] py-[3.5rem]"
+			transition:fade={{ duration: 150 }}>
 			<ProductCatCards />
-		{/if}
-	</div>
+		</div>
+
+		<div
+			class="z-5 fixed top-[9rem] left-0 w-full h-full bg-black opacity-30"
+			on:click={toggleMenu}
+			transition:fade={{ duration: 150 }} />
+			
+	{/if}
 {/if}
+
