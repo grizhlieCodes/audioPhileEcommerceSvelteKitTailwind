@@ -3,7 +3,9 @@
 </script>
 
 <style>
-
+	button, a{
+		grid-area: button;
+	}
 </style>
 
 {#if btnType === 'primary'}
