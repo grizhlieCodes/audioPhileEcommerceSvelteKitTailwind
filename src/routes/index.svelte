@@ -1,67 +1,71 @@
 <script>
-    import Button from '$lib/UI/Button.svelte'    
+	import Button from '$lib/UI/Button.svelte';
+	import { getContext } from 'svelte';
 
-    let btnTesting = {
-        content:'shop',
-        btnType: 'secondary'
-    }
-    let btnTestingTwo = {
-        content:'Testing Another One',
-        btnType: 'primary'
-    }
-    let btnTestingThree = {
-        content: `third's the charm`,
-        btnType: 'minimal'
-    }
+	let size = getContext('size');
 
+	let btnTest = {
+		content: 'Testing',
+		btnType: 'homepage'
+	};
+
+	let menuOpened = false;
+	const toggleMenu = () => {
+		menuOpened = !menuOpened;
+	};
 </script>
 
+<style>
+	span {
+		transform-origin: 4px 1.2px;
+	}
+</style>
+
+<!-- <Button {...btnTest}/> -->
+
+<header class="h-[9rem] bg-black flex justify-center items-center px-[3.2rem] py-[2.4rem]">
+	<div class="inner-container h-full w-full max-w-[111rem] flex items-center justify-between">
+		<div
+			class="menu w-[1.6rem] h-full flex flex-col justify-center items-center gap-y-[3px]
+			cursor-pointer group"
+			on:click={toggleMenu}>
+			<span
+				class="h-[3px] w-full bg-white text-white transition-all group-hover:bg-lightOrange 
+                    {menuOpened ? ' rotate-45 group-hover:translate-x-0' : ''} transform group-hover:translate-x-1" />
+			<span
+				class="h-[3px] w-full bg-white text-white transition-all group-hover:bg-lightOrange 
+                    {menuOpened ? 'hidden' : ''} " />
+			<span
+				class="h-[3px] w-full bg-white text-white transition-all group-hover:bg-lightOrange 
+                    {menuOpened ? ' -rotate-45 group-hover:translate-x-0' : ''} transform group-hover:-translate-x-1" />
+		</div>
+		<div class="logo">
+			<img src="/static/images/shared/desktop/logo.svg" alt="" />
+		</div>
+
+		<div class="cursor-pointer transition-all transform hover:rotate-12">
+			<img src="/static/images/shared/desktop/icon-cart.svg" alt="" />
+		</div>
+	</div>
+</header>
+
+<!-- HOMEPAGE -->
+<!-- TODO:
+
+    MOBILE FIRST.
+    Keep the data structure in mind whilst creating and compare if it will work
+    or not.
+
+    1. Create Header component
+    2. Be slow and see what can be a component (anything reusable)
+    3. Created Homepage-Hero component. 
+        3.1 Overlal it will be a single component with a button comp
+    4. Create ProdCategoryLink component
+        4.1 Keep in mind to create it as a container of 3. 
+    5. Create 'main' for Homepage. It's essentially links to single categories
+       of products
+    6. Create pre-footer-banner
+    7. Creater footer 
 
 
-<Button {...btnTesting} />
-<Button {...btnTestingTwo} />
-<Button {...btnTestingThree} />
-
-
-<!-- <script>
-
-let products = [
-    {
-        name: "yx1 wireless earphones",
-        productName: "yx1-earphones",
-        descr: "Tailor your listening experience with bespoke dynamic drivers from the new YX1 Wireless Earphones. Enjoy incredible high-fidelity sound even in noisy environments with its active noise cancellation feature.",
-        price: 599,
-        featuresDescr: [
-            "Experience unrivalled stereo sound thanks to innovative acoustic technology. With improved ergonomics designed for full day wearing, these revolutionary earphones have been finely crafted to provide you with the perfect fit, delivering complete comfort all day long while enjoying exceptional noise isolation and truly immersive sound.",
-            `
-The YX1 Wireless Earphones features customizable controls for volume, music, calls, and voice assistants built into both earbuds. The new 7-hour battery life can be extended up to 28 hours with the charging case, giving you uninterrupted play time. Exquisite craftsmanship with a splash resistant design now available in an all new white and grey color scheme as well as the popular classic black.`
-        ],
-        imageTrio: [
-            {
-                imagePosition: "top-left",
-                imageName: "image-gallery-1"
-            },
-            {
-                imagePosition: "bottom-left",
-                imageName: "image-gallery-2"
-            },
-            {
-                imagePosition: "right",
-                imageName: "image-gallery-3"
-            }
-        ]
-    }
-] -->
-
-<!-- </script> -->
-<!-- {#each products as {name}}
-     {#each imageTrio as {imagePosition, imageName}}
-         <img src="/media/images/product-{name}/{size}/{imageName}" alt="" class="{imagePosition}">
-     {/each}
-{/each} -->
-
-<!-- 
-    we have now output 3 images
-    create a grid and let grid handle how it's position implicitly
-    or be explicit and give each image a grid-area
- -->
+-->
