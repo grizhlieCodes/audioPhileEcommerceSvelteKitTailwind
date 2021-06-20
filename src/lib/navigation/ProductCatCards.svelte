@@ -62,9 +62,9 @@
     transition:fly={{duration: 150, x: -100}}
 >
     {#each cards as { name, width, translateY }}
-        <div
+        <a href="/product-category/{name}"
             class="card h-[21.7rem] xl:h-[28.4rem] w-[32.7rem] md:w-[22.3rem] xl:w-[35rem] flex
-            items-end transition-all">
+            items-end transition-all group">
     
             <div
                 class="text-container p-[2.2rem] xl:p-[3rem] bg-lightGray w-full h-[16.5rem] xl:h-[20.4rem] flex flex-col
@@ -81,7 +81,7 @@
     
             </div>
     
-        </div>
+        </a>
     {/each}
 
 </div>
