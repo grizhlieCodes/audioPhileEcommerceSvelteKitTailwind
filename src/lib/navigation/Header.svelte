@@ -1,6 +1,6 @@
 <script>
 	import { getContext } from 'svelte';
-	import ProductCatCards from '$lib/navigation/ProductCatCards.svelte'
+	import ProductCatCards from '$lib/navigation/ProductCatCards.svelte';
 
 	let size = getContext('size');
 
@@ -8,13 +8,31 @@
 	const toggleMenu = () => {
 		menuOpened = !menuOpened;
 	};
+
+	let desktopLinks = [
+		{
+			name: 'home',
+			link: '/'
+		},
+		{
+			name: 'headphones',
+			link: '/product-category/headphones'
+		},
+		{
+			name: 'speakers',
+			link: '/product-category/speakers'
+		},
+		{
+			name: 'earphones',
+			link: '/product-category/earphones'
+		}
+	];
 </script>
+
 <style>
 	span {
 		transform-origin: 4px 1.2px;
 	}
-
-
 
 	a.desktop-link {
 		position: relative;
@@ -30,18 +48,17 @@
 		transform: translateY(3rem);
 		width: 100%;
 		height: 3px;
-		background: #D87D4A;
+		background: #d87d4a;
 	}
 
-	a.desktop-link:hover{
+	a.desktop-link:hover {
 		transform: translateY(0.25rem);
 	}
 
-	a.desktop-link:hover::after{
+	a.desktop-link:hover::after {
 		opacity: 1;
 		transform: translateX(0);
 	}
-
 </style>
 
 <header class="h-[9rem] bg-black flex justify-center items-center px-[3.2rem] py-[2.4rem]">
@@ -52,6 +69,7 @@
 				class="w-[1.6rem] h-full flex flex-col justify-center items-center gap-y-[3px]
 				cursor-pointer group"
 				on:click={toggleMenu}>
+
 				<span
 					class="h-[3px] w-full bg-white text-white transition-all group-hover:bg-lightOrange
 					transform {menuOpened ? ' rotate-45 ' : 'group-hover:translate-x-1'}
@@ -72,30 +90,14 @@
 
 		{#if $size === 'desktop'}
 			<div class="flex gap-x-[3.2rem] flex-1">
-				<a
-					href="/"
-					class="desktop-link text-white uppercase text-[1.3rem] font-bold hover:text-darkOrange
-					tracking-[2px] relative transition-all">
-					Home
-				</a>
-				<a
-					href="/headphones"
-					class="desktop-link text-white uppercase text-[1.3rem] font-bold hover:text-darkOrange
-					tracking-[2px] relative transition-all">
-					Headphones
-				</a>
-				<a
-					href="/speakers"
-					class="desktop-link text-white uppercase text-[1.3rem] font-bold hover:text-darkOrange
-					tracking-[2px] relative transition-all">
-					Speakers
-				</a>
-				<a
-					href="/earphones"
-					class="desktop-link text-white uppercase text-[1.3rem] font-bold hover:text-darkOrange
-					tracking-[2px] relative transition-all">
-					Earphones
-				</a>
+				{#each desktopLinks as { name, link }}
+					<a
+						href={link}
+						class="desktop-link text-white uppercase text-[1.3rem] font-bold hover:text-darkOrange
+						tracking-[2px] relative transition-all">
+						{name}
+					</a>
+				{/each}
 			</div>
 		{/if}
 
@@ -106,10 +108,9 @@
 </header>
 
 {#if $size !== 'desktop'}
-	 <div class="mobile-menu-container fixed top-[9rem] w-full left-0 h-auto">
-		 {#if menuOpened}
-			  <ProductCatCards />
-		 {/if}
-	 </div>
+	<div class="mobile-menu-container fixed top-[9rem] w-full left-0 h-auto">
+		{#if menuOpened}
+			<ProductCatCards />
+		{/if}
+	</div>
 {/if}
-
