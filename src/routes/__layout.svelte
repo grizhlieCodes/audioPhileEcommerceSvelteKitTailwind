@@ -32,6 +32,12 @@ import { setContext, onMount } from 'svelte'
 
 <svelte:window bind:innerWidth={width}/>
 
-<p class="testing-class">Testing some stuff</p>
+<!-- HEADER -->
 
+
+<!-- MAIN -->
 <slot />
+
+
+<!-- FOOTER -->
+
