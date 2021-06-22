@@ -12,6 +12,9 @@ module.exports = {
         lightGray: '#F1F1F1',
         nearWhite: '#FAFAFA',
         lightOrange: '#fbaf85'
+      },
+      screens: {
+        'mTab': '400px'
       }
     }
   }
