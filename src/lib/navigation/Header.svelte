@@ -65,15 +65,14 @@
 	}
 </style>
 
-<header class="h-[9rem] bg-black flex justify-center items-center px-[3.2rem] py-[2.4rem] z-10">
-	<div class="inner-container h-full w-full max-w-[111rem] flex items-center justify-between">
+<header class="h-[9rem] bg-[#191919] flex justify-center items-center z-20">
+	<div class="inner-container h-full w-full sm:max-w-[90%] xl:max-w-[111rem] flex items-center justify-between border-b border-white px-[3.2rem] py-[2.4rem] lg:px-0 lg:py-0 border-opacity-20">
 
 		{#if $size !== 'desktop'}
 			<div
 				class="w-[1.6rem] h-full flex flex-col justify-center items-center gap-y-[3px]
 				cursor-pointer group"
 				on:click={toggleMenu}>
-
 				<span
 					class="h-[3px] w-full bg-white text-white transition-all group-hover:bg-lightOrange
 					transform {menuOpened ? ' rotate-45 ' : 'group-hover:translate-x-1'}
@@ -108,6 +107,7 @@
 		<div class="cursor-pointer transition-all transform hover:rotate-12">
 			<img src="/static/images/shared/desktop/icon-cart.svg" alt="shopping cart icon" />
 		</div>
+
 	</div>
 </header>
 
@@ -115,17 +115,17 @@
 	{#if menuOpened}
 
 		<div
-			class="mobile-menu-container fixed top-[9rem] w-full left-0 h-auto z-20 bg-white
+			class="mobile-menu-container fixed top-[9rem] w-full left-0 h-auto z-30 bg-white
 			rounded-br-[8px] rounded-bl-[8px] px-[2.4rem] py-[3.5rem]"
 			transition:fade={{ duration: 150 }}>
 			<ProductCatCards />
 		</div>
 
 		<div
-			class="z-5 fixed top-[9rem] left-0 w-full h-full bg-black opacity-30"
+			class="z-5 fixed top-[9rem] left-0 w-full h-full bg-black opacity-30 z-20"
 			on:click={toggleMenu}
 			transition:fade={{ duration: 150 }} />
-			
+
 	{/if}
 {/if}
 
