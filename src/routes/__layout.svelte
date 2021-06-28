@@ -2,6 +2,7 @@
 	import Header from '$lib/navigation/Header.svelte';
 	import { writable } from 'svelte/store';
 	import { setContext } from 'svelte';
+	import Footer from '$lib/footer/Footer.svelte'
 
 	let width;
 	let size = writable('');
@@ -41,3 +42,4 @@
 <slot />
 
 <!-- FOOTER -->
+<Footer />
