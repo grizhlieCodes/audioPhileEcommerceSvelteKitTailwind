@@ -3,4 +3,4 @@ node_modules
 /.svelte-kit
 /package
 /build
-tailwind-full.config.js
+/tailwind-full.config.js
