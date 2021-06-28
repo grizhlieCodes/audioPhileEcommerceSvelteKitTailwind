@@ -88,7 +88,7 @@
 		{/if}
 
 		<a href="/" class="logo {$size === 'desktop' ? 'mr-[19.2rem]' : ''}">
-			<img src="/static/images/shared/desktop/logo.svg" alt="audiophile logo" />
+			<img src="/images/shared/desktop/logo.svg" alt="audiophile logo" />
 		</a>
 
 		{#if $size === 'desktop'}
@@ -105,7 +105,7 @@
 		{/if}
 
 		<div class="cursor-pointer transition-all transform hover:rotate-12">
-			<img src="/static/images/shared/desktop/icon-cart.svg" alt="shopping cart icon" />
+			<img src="/images/shared/desktop/icon-cart.svg" alt="shopping cart icon" />
 		</div>
 
 	</div>
@@ -118,7 +118,7 @@
 			class="mobile-menu-container fixed top-[9rem] w-full left-0 h-auto z-30 bg-white
 			rounded-br-[8px] rounded-bl-[8px] px-[2.4rem] py-[3.5rem]"
 			transition:fade={{ duration: 150 }}>
-			<ProductCatCards />
+			<ProductCatCards on:click={toggleMenu}/>
 		</div>
 
 		<div
