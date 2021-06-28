@@ -26,6 +26,11 @@
 <!-- HOMEPAGE -->
 
 <!-- HERO -->
+
+<svelte:head>
+	<title>Audiophile - Home</title>
+</svelte:head>
+
 <main>
 
 	<Hero />
