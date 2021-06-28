@@ -10,38 +10,39 @@
 
 {#if btnType === 'primary'}
 
-	<button
+	<a 
+		href="{link}"
 		class="text-[1.3rem] font-bold uppercase bg-darkOrange px-[3.4rem] py-[1.5rem]
-		hover:bg-lightOrange text-white tracking-[1px] transition-all">
+		hover:bg-lightOrange text-white tracking-[1px] transition-all w-max">
 		{content}
-	</button>
+	</a>
 	
 {:else if btnType === 'secondary'}
 
-	<button
+	<a href="{link}"
 		class="text-[1.3rem] font-bold uppercase bg-white px-[3.4rem] py-[1.5rem] hover:bg-black
-		hover:text-white text-black tracking-[1px] border-[1px] border-black transition-all">
+		hover:text-white text-black tracking-[1px] border-[1px] border-black transition-all w-max">
 		{content}
-	</button>
+	</a>
 	
 {:else if btnType === 'link'}
 
 	<a 
 		href="{link}"
 		class="text-[1.3rem] font-bold uppercase hover:text-darkOrange text-black tracking-[1px]
-		transition-all flex flex-row justify-center items-center group">
+		transition-all flex flex-row justify-center items-center group-hover:text-darkOrange  w-max">
 		<p class="mr-[1.3rem]">{content}</p>
 		<div class="transform group-hover:transform group-hover:rotate-180 transition-all">
-			<img src="./static/images/shared/desktop/icon-arrow-right.svg" alt="" />
+			<img src="/images/shared/desktop/icon-arrow-right.svg" alt="" />
 		</div>
 	</a>
 	
 {:else if btnType === 'homepage'}
 
-	<button
-		class="text-[1.3rem] font-bold uppercase bg-black px-[3.4rem] py-[1.5rem] hover:bg-[#4C4C4C]
+	<a href={link}
+		class="text-[1.3rem] font-bold uppercase bg-black px-[3.4rem] py-[1.5rem] w-max hover:bg-[#4C4C4C]
 		hover:text-white text-white tracking-[1px] transition-all">
 		{content}
-	</button>
+	</a>
 	
 {/if}
