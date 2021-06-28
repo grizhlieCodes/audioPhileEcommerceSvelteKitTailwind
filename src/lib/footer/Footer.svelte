@@ -14,15 +14,15 @@
 		},
 		{
 			name: 'headphones',
-			link: '/headphones'
+			link: '/products/headphones'
 		},
 		{
 			name: 'speakers',
-			link: '/speakers'
+			link: '/products/speakers'
 		},
 		{
 			name: 'earphones',
-			link: '/earphones'
+			link: '/products/earphones'
 		}
 	];
 </script>
@@ -90,7 +90,7 @@
 					<li
 						class="text-white uppercase text-[1.3rem] leading-[2.5rem] tracking-[0.2rem] font-bold
 						hover:text-lightOrange transform hover:scale-95 ">
-						<a href={link}>{name}</a>
+						<a href="{link}">{name}</a>
 					</li>
 				{/each}
 			</ul>

@@ -18,15 +18,15 @@
 		},
 		{
 			name: 'headphones',
-			link: '/product-category/headphones'
+			link: '/products/headphones'
 		},
 		{
 			name: 'speakers',
-			link: '/product-category/speakers'
+			link: '/products/speakers'
 		},
 		{
 			name: 'earphones',
-			link: '/product-category/earphones'
+			link: '/products/earphones'
 		}
 	];
 

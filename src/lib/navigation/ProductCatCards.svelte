@@ -67,7 +67,7 @@
 	transition:fly={{ duration: 150, x: -100 }}>
 	{#each cards as { name, width, translateY }, i}
 		<a
-			href="/product-category/{name}"
+			href="/products/{name}"
 			class="card h-[21.7rem] lg:h-[28.4rem] w-[32.7rem] md:w-full lg:w-[35rem] flex items-end
 			transition-all group"
 			on:click>
@@ -90,7 +90,7 @@
 					transition-all group-hover:translate-y-[-0.5rem]">
 					{name}
 				</h3>
-				<Button content="SHOP" btnType="link" link="/product-category/{name}" />
+				<Button content="SHOP" btnType="link" link="/products/{name}" />
 
 			</div>
 
