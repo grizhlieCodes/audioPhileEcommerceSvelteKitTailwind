@@ -1,17 +1,26 @@
 <script context="module">
+	
+	import {get} from 'svelte/store'
+	import productStore from '$lib/products/products.js';
 	export async function load({ page }) {
 		const slug = page.params.slug;
+		const products = get(productStore)
+		const product = products.filter((p) => p.productSlug === slug)[0];
+		console.log(slug, products, product)
 		return {
 			props: {
-				slug
+				slug,
+				product
 			}
 		};
 	}
 </script>
 
 <script>
+
 	import data from '$lib/products/products.js';
 	export let slug;
+	export let product;
 
 	import { getContext } from 'svelte';
 
@@ -20,26 +29,13 @@
 	let size = getContext('size');
 
 	let products = $data;
-	console.log(products);
-	let product = products.filter((p) => p.productSlug === slug)[0];
-	console.log(product);
-	let {
-		newProduct,
-		displayName,
-		productType,
-		topDescription,
-		price,
-		features,
-		boxContents,
-		imageGallery,
-		productCode
-	} = product;
 
 	let unitsSelected = 1;
 
 	const incrementUnits = () => {
 		unitsSelected++;
 	};
+
 	const decrementUnits = () => {
 		if (unitsSelected === 1) return;
 		unitsSelected--;
@@ -50,18 +46,21 @@
 	function generateRandomProducts(iterations) {
 		let tempArray = [...products];
 		tempArray = tempArray.filter((prod) => prod.productSlug !== slug);
-		let randomNumber
+		let randomNumber;
 		for (let i = 0; i < iterations; i++) {
-			randomNumber = Math.floor(Math.random() * tempArray.length)
-			randomProducts = [
-				...randomProducts,
-				tempArray[randomNumber]
-			];
-			tempArray = tempArray.filter((p,i) => i !== randomNumber)
+			randomNumber = Math.floor(Math.random() * tempArray.length);
+			randomProducts = [...randomProducts, tempArray[randomNumber]];
+			tempArray = tempArray.filter((p, i) => i !== randomNumber);
 		}
-		console.log(randomProducts)
 	}
 	generateRandomProducts(3);
+
+
+	function clearCurrentInfo(){
+		slug = ''
+		product = {}
+	}
+
 </script>
 
 <style>
@@ -112,8 +111,8 @@
 	class="w-full max-w-[111rem] mx-auto my-[1.6rem] md:my-[3.3rem] lg:my-[7.9rem] px-[2.4rem]
 	md:px-[4rem] xl:px-0 ">
 
-	<a
-		href="/products/{productType}"
+	<a sveltekit:prefetch
+		href="/products/{product.productType}"
 		class=" text-[1.5rem] leading-[2.5rem] text-black opacity-50 hover:opacity-75 h-max ">
 		Go Back
 	</a>
@@ -123,14 +122,14 @@
 		lg:mt-[5.6rem] md:flex-row md:h-[48rem] md:gap-x-[6.9rem] lg:h-[56rem] lg:gap-x-[12.5rem]
 		mb-[8.8rem] md:mb-[12rem] lg:mb-[16rem] ">
 		<img
-			src="/images/product-{productCode}-{productType}/{$size}/image-product.jpg"
+			src="/images/product-{product.productSlug}/{$size}/image-product.jpg"
 			alt=""
 			class="w-full rounded-[0.8rem] h-[32.7rem] bg-lightGray object-contain md:object-cover
 			object-center md:h-[48rem] md:w-[28.1rem] lg:w-[54rem] lg:h-full " />
 
 		<div class="w-full flex flex-col gap-y-[2.4rem] ">
 
-			{#if newProduct}
+			{#if product.newProduct}
 				<h3 class=" text-darkOrange uppercase font-normal tracking-[1rem] text-[1.4rem] ">
 					new product
 				</h3>
@@ -139,14 +138,14 @@
 			<h1
 				class=" text-[2.8rem] uppercase font-bold tracking-[0.1rem] w-[22rem] lg:text-[4rem]
 				lg:leading-[4.4rem] lg:tracking-[0.143rem] ">
-				{displayName}
+				{product.displayName}
 			</h1>
 
 			<p class=" text-black opacity-50 font-normal leading-[2.5rem] text-[1.5rem] ">
-				{topDescription}
+				{product.topDescription}
 			</p>
 
-			<p class=" text-[1.8rem] tracking-[0.129rem] font-bold ">$ {price.toLocaleString()}</p>
+			<p class=" text-[1.8rem] tracking-[0.129rem] font-bold ">$ {product.price.toLocaleString()}</p>
 
 			<div class="flex gap-x-[1.6rem] ">
 				<div class=" w-[12rem] h-[4.8rem] bg-lightGray flex justify-around items-center">
@@ -183,7 +182,7 @@
 				md:text-[3.2rem]">
 				Features
 			</h2>
-			{#each features as feature}
+			{#each product.features as feature}
 				<p class=" text-[1.5rem] leading-[2.5rem] text-black opacity-50 ">{feature}</p>
 			{/each}
 		</div>
@@ -195,7 +194,7 @@
 				in the box
 			</h2>
 			<div class="flex flex-col gap-y-[0.8rem]">
-				{#each boxContents as content}
+				{#each product.boxContents as content}
 					<div class=" text-[1.5rem] flex gap-x-[2.4rem] ">
 						<p class=" inline-block text-darkOrange font-bold">{content.quantity}x</p>
 						<p class=" inline-block text-black opacity-50 ">{content.name}</p>
@@ -209,12 +208,35 @@
 	<!-- See actual styling, not tailwind -->
 
 	<div class="gallery-grid mb-[12rem] lg:mb-[16rem]">
-		{#each imageGallery as image}
+		{#each product.imageGallery as image}
 			<img
 				class=" h-full rounded-[8px]"
-				src="/images/product-{productCode}-{productType}/{$size}/{image}.jpg"
-				alt={displayName} />
+				src="/images/product-{product.productSlug}/{$size}/{image}.jpg"
+				alt={product.displayName} />
 		{/each}
+	</div>
+
+	<div class="h-[98.3rem] w-full flex flex-col items-center gap-y-[4rem] md:h-[56.3rem] ">
+		<h2
+			class=" text-[2.4rem] leading-[3.6rem] tracking-[0.086px] font-bold uppercase md:text-[3.2rem]">
+			you may also like
+		</h2>
+		<div class="flex flex-col gap-y-[5.6rem]">
+			{#each randomProducts as { productSlug, displayName }}
+				<div class=" w-full h-auto flex flex-col items-center gap-y-[3.2rem]">
+					<img
+						src="/images/product-{productSlug}/{$size}/image-product.jpg"
+						alt=""
+						class=" w-full h-[12rem] object-contain object-center bg-lightGray   rounded-[0.8rem]" />
+					<h2
+						class=" text-[2.4rem] leading-[3.6rem] tracking-[0.086px] font-bold uppercase
+						md:text-[3.2rem]">
+						{displayName}
+					</h2>
+					<Button content="See product" btnType="primary" link="/product/{productSlug}" on:click={clearCurrentInfo}/>
+				</div>
+			{/each}
+		</div>
 	</div>
 
 </section>
