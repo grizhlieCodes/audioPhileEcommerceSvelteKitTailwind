@@ -44,6 +44,24 @@
 		if (unitsSelected === 1) return;
 		unitsSelected--;
 	};
+
+	let randomProducts = [];
+
+	function generateRandomProducts(iterations) {
+		let tempArray = [...products];
+		tempArray = tempArray.filter((prod) => prod.productSlug !== slug);
+		let randomNumber
+		for (let i = 0; i < iterations; i++) {
+			randomNumber = Math.floor(Math.random() * tempArray.length)
+			randomProducts = [
+				...randomProducts,
+				tempArray[randomNumber]
+			];
+			tempArray = tempArray.filter((p,i) => i !== randomNumber)
+		}
+		console.log(randomProducts)
+	}
+	generateRandomProducts(3);
 </script>
 
 <style>
@@ -102,7 +120,8 @@
 
 	<div
 		class="w-full h-[75.5rem] flex flex-col items-center justify-start gap-y-[3.2rem] mt-[2.4rem]
-		lg:mt-[5.6rem] md:flex-row md:h-[48rem] md:gap-x-[6.9rem] lg:h-[56rem] lg:gap-x-[12.5rem]  mb-[8.8rem] md:mb-[12rem] lg:mb-[16rem] ">
+		lg:mt-[5.6rem] md:flex-row md:h-[48rem] md:gap-x-[6.9rem] lg:h-[56rem] lg:gap-x-[12.5rem]
+		mb-[8.8rem] md:mb-[12rem] lg:mb-[16rem] ">
 		<img
 			src="/images/product-{productCode}-{productType}/{$size}/image-product.jpg"
 			alt=""
@@ -154,10 +173,14 @@
 		</div>
 	</div>
 
-	<div class=" w-full flex flex-col gap-y-[8.8rem] mb-[12.1rem] md:mb-[15.3rem] lg:mb-[10.8rem] lg:flex-row lg:gap-x-[12.5rem] " >
+	<div
+		class=" w-full flex flex-col gap-y-[8.8rem] mb-[12.1rem] md:mb-[15.3rem] lg:mb-[10.8rem]
+		lg:flex-row lg:gap-x-[12.5rem] ">
 
 		<div class="features flex flex-col gap-y-[2.4rem] lg:w-[63.5rem] ">
-			<h2 class=" text-[2.4rem] leading-[3.6rem] tracking-[0.086px] font-bold uppercase  md:text-[3.2rem]">
+			<h2
+				class=" text-[2.4rem] leading-[3.6rem] tracking-[0.086px] font-bold uppercase
+				md:text-[3.2rem]">
 				Features
 			</h2>
 			{#each features as feature}
@@ -166,7 +189,9 @@
 		</div>
 
 		<div class=" flex flex-col gap-y-[2.4rem] md:flex-row lg:flex-col">
-			<h2 class=" text-[2.4rem] leading-[3.6rem] tracking-[0.086px] font-bold uppercase md:w-[50%] md:text-[3.2rem] lg:w-[100%]">
+			<h2
+				class=" text-[2.4rem] leading-[3.6rem] tracking-[0.086px] font-bold uppercase md:w-[50%]
+				md:text-[3.2rem] lg:w-[100%]">
 				in the box
 			</h2>
 			<div class="flex flex-col gap-y-[0.8rem]">
