@@ -117,8 +117,8 @@ const products = writable([
         ]
     },
     {
-        displayName: "zx9 speaker",
-        productSlug: "zx9-speaker",
+        displayName: "zx9 speakers",
+        productSlug: "zx9-speakers",
         productCode: 'zx9',
         newProduct: true,
         productType: "speakers",
@@ -158,8 +158,8 @@ const products = writable([
         ]
     },
     {
-        displayName: "zx7 speaker",
-        productSlug: "zx7-speaker",
+        displayName: "zx7 speakers",
+        productSlug: "zx7-speakers",
         productCode: 'zx7',
         newProduct: false,
         productType: "speakers",
