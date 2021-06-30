@@ -38,7 +38,7 @@
 				<br />
 				remarkable sound.
 			</p>
-			<Button content="see product" btnType="homepage" link="#" />
+			<Button content="see product" btnType="homepage" link="/product/zx9-speakers" />
 		</div>
 		<div
 			class="span-container absolute grid place-items-center -top-40 md:-top-96 select-none lg:top-0
@@ -59,8 +59,8 @@
 		<div
 			class="text-container h-full flex flex-col gap-y-[3.2rem] m-auto w-full justify-center
 			md:items-start mTab:px-[4.2rem] xl:px-[9.5rem] z-10">
-			<h2 class=" text-[2.8rem] tracking-[2px] font-bold">YX1 EARPHONES</h2>
-			<Button content="see product" btnType="secondary" />
+			<h2 class=" text-[2.8rem] tracking-[2px] font-bold uppercase">zx7 speaker</h2>
+			<Button content="see product" btnType="secondary" link="/product/zx7-speakers"/>
 		</div>
 		<div class="img-container h-full w-full absolute left-0 top-0">
 			<img
@@ -87,7 +87,7 @@
 			class="text-container h-auto flex flex-col gap-y-[3.2rem] m-auto w-full items-center
 			md:items-start mTab:px-[4.2rem] xl:px-[9.5rem] ">
 			<h2 class=" text-[2.8rem] tracking-[2px] font-bold ">YX1 EARPHONES</h2>
-			<Button content="see product" btnType="secondary" />
+			<Button content="see product" btnType="secondary" link="/product/yx1-wireless-earphones"/>
 		</div>
 	</article>
 </section>
