@@ -1,8 +1,10 @@
 <script>
+	
 	import Header from '$lib/navigation/Header.svelte';
 	import { writable } from 'svelte/store';
 	import { setContext } from 'svelte';
 	import Footer from '$lib/footer/Footer.svelte'
+	import Cart from '$lib/products/Cart.svelte'
 
 	let width;
 	let size = writable('');
@@ -15,15 +17,23 @@
 	} else {
 		size.set('mobile');
 	}
+
+	let showCart = false
+
+	function toggleCart(){
+		showCart = !showCart
+	}
+
 </script>
 
 <style>
+
 	@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap');
 	
 	@tailwind base;
 	@tailwind components;
 	@tailwind utilities;
-
+    
 	:global(:root) {
 		font-family: 'manrope', sans-serif;
 		font-size: 62.5%;
@@ -36,10 +46,16 @@
 </style>
 
 <svelte:window bind:innerWidth={width} />
-<Header />
-<main />
-<!-- MAIN -->
-<slot />
 
-<!-- FOOTER -->
+<Header on:click={toggleCart}/>
+<main class=" relative ">
+	{#if showCart}
+	
+		<Cart />
+		
+	{/if}
+
+	<slot />
+
+</main>
 <Footer />
