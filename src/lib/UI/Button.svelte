@@ -29,7 +29,7 @@
 	{/if}
 {:else if btnType === 'secondary'}
 
-	<a
+	<a  sveltekit:prefetch
 		href={link}
 		class="text-[1.3rem] font-bold uppercase bg-white px-[3.4rem] py-[1.5rem] hover:bg-black
 		hover:text-white text-black tracking-[1px] border-[1px] border-black transition-all w-max">
@@ -37,7 +37,7 @@
 	</a>
 {:else if btnType === 'link'}
 
-	<a
+	<a  sveltekit:prefetch
 		href={link}
 		class="text-[1.3rem] font-bold uppercase hover:text-darkOrange text-black tracking-[1px]
 		transition-all flex flex-row justify-center items-center group-hover:text-darkOrange w-max">
@@ -48,7 +48,7 @@
 	</a>
 {:else if btnType === 'homepage'}
 
-	<a
+	<a  sveltekit:prefetch
 		href={link}
 		class="text-[1.3rem] font-bold uppercase bg-black px-[3.4rem] py-[1.5rem] w-max
 		hover:bg-[#4C4C4C] hover:text-white text-white tracking-[1px] transition-all">
