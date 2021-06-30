@@ -137,7 +137,7 @@
 			</div>
 		{/if}
 
-		<div class="cursor-pointer transition-all transform hover:rotate-12">
+		<div class="cursor-pointer transition-all transform hover:rotate-12" on:click>
 			<img src="/images/shared/desktop/icon-cart.svg" alt="shopping cart icon" />
 		</div>
 
