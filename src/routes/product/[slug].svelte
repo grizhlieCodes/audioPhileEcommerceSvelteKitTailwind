@@ -22,6 +22,8 @@
 	export let slug;
 	export let product;
 
+	import ProductCatCards from '$lib/navigation/ProductCatCards.svelte'
+
 	import { getContext } from 'svelte';
 
 	import Button from '$lib/UI/Button.svelte';
@@ -109,7 +111,7 @@
 
 <section
 	class="w-full max-w-[111rem] mx-auto my-[1.6rem] md:my-[3.3rem] lg:my-[7.9rem] px-[2.4rem]
-	md:px-[4rem] xl:px-0 ">
+	md:px-[4rem] xl:px-0 mb-[12rem] lg:mb-[16rem]">
 
 	<a sveltekit:prefetch
 		href="/products/{product.productType}"
@@ -216,27 +218,31 @@
 		{/each}
 	</div>
 
-	<div class="h-[98.3rem] w-full flex flex-col items-center gap-y-[4rem] md:h-[56.3rem] ">
+	<div class="h-[98.3rem] w-full flex flex-col items-center gap-y-[4rem] md:h-[56.3rem] lg:h-[57.1rem] ">
 		<h2
 			class=" text-[2.4rem] leading-[3.6rem] tracking-[0.086px] font-bold uppercase md:text-[3.2rem]">
 			you may also like
 		</h2>
-		<div class="flex flex-col gap-y-[5.6rem]">
-			{#each randomProducts as { productSlug, displayName }}
-				<div class=" w-full h-auto flex flex-col items-center gap-y-[3.2rem]">
+		<div class="flex flex-col gap-y-[5.6rem] md:flex-row md:gap-x-[1.1rem] lg:gap-x-[3rem]">
+			{#each randomProducts as { productSlug, shortName }}
+				<a href="/product/{productSlug}" class=" w-full h-auto flex flex-col items-center gap-y-[3.2rem] md:gap-y-[4rem] group">
 					<img
 						src="/images/product-{productSlug}/{$size}/image-product.jpg"
 						alt=""
-						class=" w-full h-[12rem] object-contain object-center bg-lightGray   rounded-[0.8rem]" />
+						class=" w-full h-[12rem] object-contain object-center bg-lightGray  rounded-[0.8rem] md:h-[31.8rem]"  />
 					<h2
 						class=" text-[2.4rem] leading-[3.6rem] tracking-[0.086px] font-bold uppercase
 						md:text-[3.2rem]">
-						{displayName}
+						{shortName}
 					</h2>
 					<Button content="See product" btnType="primary" link="/product/{productSlug}" on:click={clearCurrentInfo}/>
-				</div>
+				</a>
 			{/each}
 		</div>
 	</div>
 
+</section>
+
+<section class="mt-[4rem] mb-[12rem] md:my-[9.6rem] lb-mt-[12rem] lg:mb-[16rem] ">
+	<ProductCatCards />
 </section>
