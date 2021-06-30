@@ -49,7 +49,7 @@
 			left: 0;
 			width: 100%;
 			height: 100%;
-			background: url(images/home/desktop/image-hero.jpg) no-repeat center center;
+			background: url(/images/home/desktop/image-hero.jpg) no-repeat center center;
 			background-size: cover;
 		}
 	}
