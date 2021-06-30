@@ -35,7 +35,7 @@
 
 	<Hero />
 
-	<section class="mt-[4rem] mb-[12rem] md:my-[9.6rem] lb-mt-[12rem] lg:mb-[16.8rem] ">
+	<section class="mt-[4rem] mb-[12rem] md:my-[9.6rem] lb-mt-[12rem] lg:mb-[16rem] ">
 		<ProductCatCards />
 	</section>
 
