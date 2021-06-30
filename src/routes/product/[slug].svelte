@@ -21,12 +21,11 @@
 	import data from '$lib/products/products.js';
 	export let slug;
 	export let product;
-
+	import UnitsCounter from '$lib/UI/UnitsCounter.svelte'
 	import ProductCatCards from '$lib/navigation/ProductCatCards.svelte'
-
 	import { getContext } from 'svelte';
-
 	import Button from '$lib/UI/Button.svelte';
+	import productCart from '$lib/products/cartStore.js'
 
 	let size = getContext('size');
 
@@ -35,6 +34,7 @@
 	let unitsSelected = 1;
 
 	const incrementUnits = () => {
+		console.log('works')
 		unitsSelected++;
 	};
 
@@ -42,6 +42,8 @@
 		if (unitsSelected === 1) return;
 		unitsSelected--;
 	};
+		
+	$: console.log(unitsSelected)
 
 	let randomProducts = [];
 
@@ -55,12 +57,17 @@
 			tempArray = tempArray.filter((p, i) => i !== randomNumber);
 		}
 	}
+	
 	generateRandomProducts(3);
 
 
 	function clearCurrentInfo(){
 		slug = ''
 		product = {}
+	}
+
+	function addToCart(){
+		productCart.addNewItem(slug, unitsSelected)
 	}
 
 </script>
@@ -150,29 +157,14 @@
 			<p class=" text-[1.8rem] tracking-[0.129rem] font-bold ">$ {product.price.toLocaleString()}</p>
 
 			<div class="flex gap-x-[1.6rem] ">
-				<div class=" w-[12rem] h-[4.8rem] bg-lightGray flex justify-around items-center">
-					<button
-						class=" text-[1.3rem] text-black opacity-25 cursor-pointer hover:opacity-75 h-full
-						w-[2rem] "
-						on:click={decrementUnits}>
-						-
-					</button>
-					<input
-						type="text"
-						class=" text-[1.3rem] font-bold tracking-[0.1rem] w-[2rem] bg-transparent text-center"
-						bind:value={unitsSelected} />
-					<button
-						class=" text-[1.3rem] text-black opacity-25 cursor-pointer hover:opacity-75 h-full
-						w-[2rem] "
-						on:click={incrementUnits}>
-						+
-					</button>
-				</div>
-
-				<Button content="add to cart" btnType="primary" />
+				<UnitsCounter on:decrementUnits={decrementUnits} on:incrementUnits={incrementUnits} value={unitsSelected} />
+				<Button content="add to cart" btnType="primary" on:click={addToCart}/>
 			</div>
 		</div>
 	</div>
+
+	<!-- ABOVE HERE ==================================== -->
+
 
 	<div
 		class=" w-full flex flex-col gap-y-[8.8rem] mb-[12.1rem] md:mb-[15.3rem] lg:mb-[10.8rem]
