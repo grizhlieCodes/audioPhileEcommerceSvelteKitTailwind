@@ -5,7 +5,7 @@ const products = writable([
         displayName: "xx99 mark ii headphones",
         productSlug: "xx99-mark-two-headphones",
         productCode: 'xx99-mark-two',
-        shortName: 'xx99 mark ii',
+        shortName: 'xx99 mk ii',
         newProduct: true,
         productType: "headphones",
         topDescription: "The new XX99 Mark II headphones is the pinnacle of pristine audio. It redefines your premium headphone experience by reproducing the balanced depth and precision of studio-quality sound.",
@@ -47,7 +47,7 @@ const products = writable([
         displayName: "xx99 mark i headphones",
         productSlug: "xx99-mark-one-headphones",
         productCode: 'xx99-mark-one',
-        shortName: 'xx99 mark i',
+        shortName: 'xx99 mk i',
         newProduct: false,
         productType: "headphones",
         topDescription: "As the gold standard for headphones, the classic XX99 Mark I offers detailed and accurate audio reproduction for audiophiles, mixing engineers, and music aficionados alike in studios and on the go. ",
@@ -253,3 +253,20 @@ const customProducts = {
 }
 
 export default customProducts
+
+
+
+
+/*
+
+
+    {
+        slug:"yx1-wireless-earphones",
+        price: 599,
+        unitsSelected: 1,
+        shortName: "yx1"
+    }
+
+
+
+*/ 
