@@ -16,20 +16,24 @@
 	{#if link === ''}
 		<button
 			class="text-[1.3rem] font-bold uppercase bg-darkOrange px-[3.4rem] py-[1.5rem]
-			hover:bg-lightOrange text-white tracking-[1px] transition-all w-max" on:click>
+			hover:bg-lightOrange text-white tracking-[1px] transition-all w-max"
+			on:click>
 			{content}
 		</button>
 	{:else}
-		<a  sveltekit:prefetch
+		<a  on:click
+			sveltekit:prefetch
 			href={link}
 			class="text-[1.3rem] font-bold uppercase bg-darkOrange px-[3.4rem] py-[1.5rem]
-			hover:bg-lightOrange text-white tracking-[1px] transition-all w-max block group-hover:bg-lightOrange">
+			hover:bg-lightOrange text-white tracking-[1px] transition-all w-max block
+			group-hover:bg-lightOrange">
 			{content}
 		</a>
 	{/if}
 {:else if btnType === 'secondary'}
 
-	<a  sveltekit:prefetch
+	<a
+		sveltekit:prefetch
 		href={link}
 		class="text-[1.3rem] font-bold uppercase bg-white px-[3.4rem] py-[1.5rem] hover:bg-black
 		hover:text-white text-black tracking-[1px] border-[1px] border-black transition-all w-max">
@@ -37,7 +41,8 @@
 	</a>
 {:else if btnType === 'link'}
 
-	<a  sveltekit:prefetch
+	<a
+		sveltekit:prefetch
 		href={link}
 		class="text-[1.3rem] font-bold uppercase hover:text-darkOrange text-black tracking-[1px]
 		transition-all flex flex-row justify-center items-center group-hover:text-darkOrange w-max">
@@ -48,10 +53,19 @@
 	</a>
 {:else if btnType === 'homepage'}
 
-	<a  sveltekit:prefetch
+	<a
+		sveltekit:prefetch
 		href={link}
 		class="text-[1.3rem] font-bold uppercase bg-black px-[3.4rem] py-[1.5rem] w-max
 		hover:bg-[#4C4C4C] hover:text-white text-white tracking-[1px] transition-all">
 		{content}
 	</a>
+{:else if btnType === 'fullWidthPrimary'}
+
+	<button
+		class="text-[1.3rem] font-bold uppercase bg-darkOrange px-[3.4rem] py-[1.5rem]
+		hover:bg-lightOrange text-white tracking-[1px] transition-all w-full"
+		on:click>
+		{content}
+	</button>
 {/if}

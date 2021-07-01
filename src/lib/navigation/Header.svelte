@@ -2,6 +2,23 @@
 	import { getContext } from 'svelte';
 	import ProductCatCards from '$lib/navigation/ProductCatCards.svelte';
 	import { fade } from 'svelte/transition';
+	import CartStore from '$lib/products/cartStore.js';
+
+	$: cartLength = $CartStore.length;
+
+	let cartItemQuantity = 0
+	function updateCartQuantity(cart){
+		if(cartLength === 0){
+			cartItemQuantity = 0
+		} else {
+			cartItemQuantity = 0
+			cart.forEach(item => {
+				cartItemQuantity = cartItemQuantity + item.unitsSelected
+			})
+		}
+	}
+
+	$: updateCartQuantity($CartStore)
 
 	let size = getContext('size');
 
@@ -66,12 +83,12 @@
 </style>
 
 <header class="h-[9rem] bg-[#191919] flex justify-center items-center z-20">
-	<div
+	<div id="header-inner-container"
 		class="inner-container h-full w-full sm:max-w-[90%] xl:max-w-[111rem] flex items-center
 		justify-between border-b border-white px-[3.2rem] py-[2.4rem] lg:px-0 lg:py-0 border-opacity-20">
 
 		{#if $size !== 'desktop'}
-			<div
+			<div id="header-mobile-nav"
 				class="w-[1.6rem] h-full flex flex-col justify-center items-center gap-y-[3px]
 				cursor-pointer group"
 				on:click={toggleMenu}>
@@ -89,7 +106,7 @@
 			</div>
 		{/if}
 
-		<a href="/" class="logo {$size === 'desktop' ? 'mr-[19.2rem]' : ''} group">
+		<a href="/" id="header-logo" class="logo {$size === 'desktop' ? 'mr-[19.2rem]' : ''} group">
 			<svg width="143" height="25" xmlns="http://www.w3.org/2000/svg">
 				<path
 					d="M7.363 20.385c1.63 0 3.087-.537 4.237-1.47l.414.994h3.739V5.853h-3.605l-.495
@@ -120,12 +137,13 @@
 					7.5zm2.896-9.021h-5.677c.391-1.396 1.372-2.163 2.781-2.163 1.46 0 2.471.758 2.896 2.163z"
 					fill="#FFF"
 					fill-rule="nonzero"
-					class="group-hover:fill-current text-darkOrange transform group-hover:scale-[95%] transition-all " />
+					class="group-hover:fill-current text-darkOrange transform group-hover:scale-[95%]
+					transition-all " />
 			</svg>
 		</a>
 
 		{#if $size === 'desktop'}
-			<div class="flex gap-x-[3.2rem] flex-1">
+			<div id="header-desktop-nav" class="flex gap-x-[3.2rem] flex-1">
 				{#each desktopLinks as { name, link }}
 					<a
 						href={link}
@@ -137,8 +155,17 @@
 			</div>
 		{/if}
 
-		<div class="cursor-pointer transition-all transform hover:rotate-12">
-			<img src="/images/shared/desktop/icon-cart.svg" alt="shopping cart icon" />
+		<div id="cart-icon-container"
+			class="cart-icon-container cursor-pointer transition-all transform hover:rotate-12 relative"
+			on:click>
+			<img id="cart-icon" src="/images/shared/desktop/icon-cart.svg" alt="shopping cart icon" />
+			{#if cartLength !== 0}
+				<div id="cart-item-quantity" transition:fade={{duration:200}}
+					class=" absolute top-0 right-0 w-full h-full transform -translate-y-2/4 translate-x-2/4
+					rounded-full bg-darkOrange grid place-items-center text-white font-bold text-[1.5rem] ">
+					{cartItemQuantity}
+				</div>
+			{/if}
 		</div>
 
 	</div>
@@ -146,7 +173,7 @@
 
 {#if $size !== 'desktop'}
 	{#if menuOpened}
-		<div
+		<div id="mobile-menu-container"
 			class="mobile-menu-container fixed top-[9rem] w-full left-0 h-auto z-30 bg-white
 			rounded-br-[8px] rounded-bl-[8px] px-[2.4rem] py-[3.5rem]"
 			transition:fade={{ duration: 150 }}>
