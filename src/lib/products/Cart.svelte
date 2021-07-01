@@ -1,5 +1,5 @@
 <script>
-	import UnitsCounter from '$lib/ui/UnitsCounter.svelte';
+	import UnitsCounter from '$lib/UI/UnitsCounter.svelte';
 	import Button from '$lib/UI/Button.svelte';
 	import { fly, fade } from 'svelte/transition';
 	import CartStore from '$lib/products/cartStore.js';
