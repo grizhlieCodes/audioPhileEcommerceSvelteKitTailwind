@@ -8,7 +8,7 @@
 
 	let name = 'XX99 MK II';
 
-	let cartLength = $CartStore.length;
+	let cartLength = $CartStore.length ;
     
     let runningTotal = 0;
 	$: if (cartLength === 0) {
@@ -25,15 +25,7 @@
 
     $: total = runningTotal
 
-	let cartEmpty = false;
-
-	// $: $CartStore.forEach((item) => {
-	// 	let price = item.price;
-	// 	let quantity = item.unitsSelected;
-	// 	let totalPriceOfItem = price * quantity;
-	// 	total = total + totalPriceOfItem;
-	// });
-
+	$: cartEmpty = cartLength === 0 ? true : false ;
 
 	const deleteAllItems = () => {
 		total = 0;
