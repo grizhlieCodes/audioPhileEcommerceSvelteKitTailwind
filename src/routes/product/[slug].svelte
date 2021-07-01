@@ -1,16 +1,32 @@
 <script context="module">
+
+	let randomProducts = [];
+
+	function generateRandomProducts(slug, array){
+		let tempArray = [...array];
+		tempArray = tempArray.filter((prod) => prod.productSlug !== slug);
+		let randomNumber;
+		for (let i = 0; i < 3; i++) {
+			randomNumber = Math.floor(Math.random() * tempArray.length);
+			randomProducts = [...randomProducts, tempArray[randomNumber]];
+			tempArray = tempArray.filter((p, i) => i !== randomNumber);
+		}
+	}
 	
 	import {get} from 'svelte/store'
 	import productStore from '$lib/products/products.js';
 	export async function load({ page }) {
+		randomProducts = []
 		const slug = page.params.slug;
+		console.log(slug)
 		const products = get(productStore)
+		generateRandomProducts(slug, products)
 		const product = products.filter((p) => p.productSlug === slug)[0];
-		console.log(slug, products, product)
 		return {
 			props: {
 				slug,
-				product
+				product,
+				randomProducts
 			}
 		};
 	}
@@ -21,6 +37,7 @@
 	import data from '$lib/products/products.js';
 	export let slug;
 	export let product;
+	export let randomProducts;
 	import UnitsCounter from '$lib/UI/UnitsCounter.svelte'
 	import ProductCatCards from '$lib/navigation/ProductCatCards.svelte'
 	import { getContext } from 'svelte';
@@ -34,7 +51,6 @@
 	let unitsSelected = 1;
 
 	const incrementUnits = () => {
-		console.log('works')
 		unitsSelected++;
 	};
 
@@ -43,31 +59,19 @@
 		unitsSelected--;
 	};
 		
-	$: console.log(unitsSelected)
 
-	let randomProducts = [];
-
-	function generateRandomProducts(iterations) {
-		let tempArray = [...products];
-		tempArray = tempArray.filter((prod) => prod.productSlug !== slug);
-		let randomNumber;
-		for (let i = 0; i < iterations; i++) {
-			randomNumber = Math.floor(Math.random() * tempArray.length);
-			randomProducts = [...randomProducts, tempArray[randomNumber]];
-			tempArray = tempArray.filter((p, i) => i !== randomNumber);
-		}
-	}
 	
-	generateRandomProducts(3);
 
-
-	function clearCurrentInfo(){
-		slug = ''
-		product = {}
-	}
+	// function clearCurrentInfo(){
+	// 	randomProducts = []
+	// 	// console.log('running')
+	// 	// slug = ''
+	// 	// product = {}
+	// 	generateRandomProducts(3);
+	// }
 
 	function addToCart(){
-		productCart.addNewItem(slug, unitsSelected)
+		productCart.addNewItemOrUpdateExisting(slug, unitsSelected)
 	}
 
 </script>
@@ -117,7 +121,7 @@
 </style>
 
 <section
-	class="w-full max-w-[111rem] mx-auto my-[1.6rem] md:my-[3.3rem] lg:my-[7.9rem] px-[2.4rem]
+	class="w-full max-w-[111rem] mx-auto pt-[1.6rem] md:mb-[3.3rem] md:pt-[3.3rem] lg:pt-[7.9rem] px-[2.4rem]
 	md:px-[4rem] xl:px-0 mb-[12rem] lg:mb-[16rem]">
 
 	<a sveltekit:prefetch
@@ -227,7 +231,7 @@
 						md:text-[3.2rem]">
 						{shortName}
 					</h2>
-					<Button content="See product" btnType="primary" link="/product/{productSlug}" on:click={clearCurrentInfo}/>
+					<Button content="See product" btnType="primary" link="/product/{productSlug}" />
 				</a>
 			{/each}
 		</div>
