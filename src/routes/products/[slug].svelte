@@ -21,7 +21,7 @@
 	let products = $data;
 </script>
 
-<section class=" flex flex-col items-center gap-y-[12rem] w-full max-w-[111rem] mx-auto my-[16rem]">
+<section class=" flex flex-col items-center gap-y-[12rem] w-full max-w-[111rem] mx-auto pt-[16rem] mb-[16rem]">
 	{#each products.filter((product) => product.productType === slug) as { displayName, newProduct, productCode, topDescription, productSlug }}
 		<article
 			class="w-full h-auto px-[2.4rem] gap-y-[3.2rem] flex flex-col text-center 
