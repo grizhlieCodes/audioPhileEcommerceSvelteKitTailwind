@@ -2,6 +2,9 @@
 	import { getContext } from 'svelte';
 	import ProductCatCards from '$lib/navigation/ProductCatCards.svelte';
 	import { fade } from 'svelte/transition';
+	import CartStore from '$lib/products/cartStore.js';
+
+	$: cartLength = $CartStore.length;
 
 	let size = getContext('size');
 
@@ -120,7 +123,8 @@
 					7.5zm2.896-9.021h-5.677c.391-1.396 1.372-2.163 2.781-2.163 1.46 0 2.471.758 2.896 2.163z"
 					fill="#FFF"
 					fill-rule="nonzero"
-					class="group-hover:fill-current text-darkOrange transform group-hover:scale-[95%] transition-all " />
+					class="group-hover:fill-current text-darkOrange transform group-hover:scale-[95%]
+					transition-all " />
 			</svg>
 		</a>
 
@@ -137,8 +141,17 @@
 			</div>
 		{/if}
 
-		<div class="cursor-pointer transition-all transform hover:rotate-12" on:click>
+		<div
+			class="cart-icon-container cursor-pointer transition-all transform hover:rotate-12 relative"
+			on:click>
 			<img src="/images/shared/desktop/icon-cart.svg" alt="shopping cart icon" />
+			{#if cartLength !== 0}
+				<div
+					class=" absolute top-0 right-0 w-full h-full transform -translate-y-2/4 translate-x-2/4
+					rounded-full bg-darkOrange grid place-items-center text-white font-bold text-[1.5rem] ">
+					{cartLength}
+				</div>
+			{/if}
 		</div>
 
 	</div>
