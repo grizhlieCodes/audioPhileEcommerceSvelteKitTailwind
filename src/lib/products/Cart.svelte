@@ -64,7 +64,7 @@
 
 <div
 	transition:fly={{ x: 150, duration: 250 }}
-	class=" w-[32.7rem] md:w-[37.7rem] absolute h-[48.8rem] bg-white z-50 rounded-[0.8rem]
+	class=" w-[32.7rem] md:w-[37.7rem] absolute min-h-[48.8rem] bg-white z-50 rounded-[0.8rem]
 	top-[2.4rem] left-2/4 transform translate-x-[-50%] md:right-[2.4rem] px-[2.8rem] py-[3.2rem] ">
 
 	<div class="w-full flex justify-between mb-[3.2rem]">
