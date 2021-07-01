@@ -1,4 +1,4 @@
-import {writable, get} from 'svelte/store'
+import { writable, get } from 'svelte/store'
 
 import allProducts from './products.js'
 
@@ -7,53 +7,63 @@ const cart = writable([])
 const allProds = get(allProducts)
 
 const customCart = {
-    cart: cart.subscribe,
+    subscribe: cart.subscribe,
+    setCart: (storeItems) => {
+        cart.set(storeItems)
+    },
     updateQuantity: (slug, quantity) => {
         cart.update(cartStore => {
             let store = [...cartStore]
-            let selectedItem = {...cartStore.find(i => i.slug === slug)}
+            let selectedItem = { ...cartStore.find(i => i.slug === slug) }
             selectedItem = {
                 ...selectedItem,
-                unitsSelected: quantity
+                unitsSelected: quantity,
+                itemTotal: selectedItem.price * quantity
             }
             let selectedItemIndex = cartStore.findIndex(i => i.slug === slug)
             store[selectedItemIndex] = selectedItem
+            localStorage.setItem('productsStore', JSON.stringify(store))
             return store
-            
         })
     },
     deleteAllItems: () => cart.set([]),
-    addNewItem: (slug, quantity) => {
-        let itemToBeUpdated = customCart.updateIfAddedItemAlreadyInCart(slug, quantity)
+    addNewItemOrUpdateExisting: (slug, quantity) => {
+        let itemToBeUpdated = customCart.updateQuantityItemIfAlreadyInCart(slug, quantity)
         let itemToBeAdded = itemToBeUpdated === false
-        if(itemToBeUpdated){
+        if (itemToBeUpdated) {
             customCart.updateQuantity(slug, quantity)
-        } else if (itemToBeAdded){
-            cart.update(cartStore => {
-                let productObject = allProds.find(p => p.productSlug === slug)
-                cartStore = [
-                    ...cartStore,
-                    {
-                        slug,
-                        price: productObject.price,
-                        unitsSelected: quantity,
-                        shortName: productObject.shortName
-                    }
-                ]
-                console.log(cartStore)
-                return cartStore
-            })
+        } else if (itemToBeAdded) {
+            customCart.addNewItem(slug, quantity)
         }
-        console.log(get(cart))
     },
-    updateIfAddedItemAlreadyInCart: (slug, quantity) => {
+    addNewItem: (slug, quantity) => {
+        cart.update(cartStore => {
+            let productObject = allProds.find(p => p.productSlug === slug)
+            cartStore = [
+                ...cartStore,
+                {
+                    slug,
+                    price: productObject.price,
+                    unitsSelected: quantity,
+                    shortName: productObject.shortName
+                }
+            ]
+            localStorage.setItem('productsStore', JSON.stringify(cartStore))
+            return cartStore
+        })
+    },
+    updateQuantityItemIfAlreadyInCart: (slug, quantity) => {
         let tempCart = get(cart)
         let itemAlreadyPresent = tempCart.find(i => i.slug === slug)
-        if(itemAlreadyPresent){
+        if (itemAlreadyPresent) {
             return true
         } else {
             return false
         }
+    },
+    setStoreFromLocalStorage: () => {
+        let storeItems = JSON.parse(localStorage.getItem('productsStore'))
+        cart.set(storeItems)
     }
 }
 
