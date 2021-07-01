@@ -1,8 +1,6 @@
 <script context="module">
-
-	let randomProducts = [];
-
-	function generateRandomProducts(slug, array){
+	function generateRandomProducts(slug, array) {
+		let randomProducts = [];
 		let tempArray = [...array];
 		tempArray = tempArray.filter((prod) => prod.productSlug !== slug);
 		let randomNumber;
@@ -11,16 +9,16 @@
 			randomProducts = [...randomProducts, tempArray[randomNumber]];
 			tempArray = tempArray.filter((p, i) => i !== randomNumber);
 		}
+		return randomProducts;
 	}
-	
-	import {get} from 'svelte/store'
+
+	import { get } from 'svelte/store';
 	import productStore from '$lib/products/products.js';
 	export async function load({ page }) {
-		randomProducts = []
 		const slug = page.params.slug;
-		console.log(slug)
-		const products = get(productStore)
-		generateRandomProducts(slug, products)
+		console.log(slug);
+		const products = get(productStore);
+		let randomProducts = generateRandomProducts(slug, products);
 		const product = products.filter((p) => p.productSlug === slug)[0];
 		return {
 			props: {
@@ -33,16 +31,15 @@
 </script>
 
 <script>
-
 	import data from '$lib/products/products.js';
 	export let slug;
 	export let product;
 	export let randomProducts;
-	import UnitsCounter from '$lib/UI/UnitsCounter.svelte'
-	import ProductCatCards from '$lib/navigation/ProductCatCards.svelte'
+	import UnitsCounter from '$lib/UI/UnitsCounter.svelte';
+	import ProductCatCards from '$lib/navigation/ProductCatCards.svelte';
 	import { getContext } from 'svelte';
 	import Button from '$lib/UI/Button.svelte';
-	import productCart from '$lib/products/cartStore.js'
+	import productCart from '$lib/products/cartStore.js';
 
 	let size = getContext('size');
 
@@ -58,22 +55,10 @@
 		if (unitsSelected === 1) return;
 		unitsSelected--;
 	};
-		
 
-	
-
-	// function clearCurrentInfo(){
-	// 	randomProducts = []
-	// 	// console.log('running')
-	// 	// slug = ''
-	// 	// product = {}
-	// 	generateRandomProducts(3);
-	// }
-
-	function addToCart(){
-		productCart.addNewItemOrUpdateExisting(slug, unitsSelected)
+	function addToCart() {
+		productCart.addNewItemOrUpdateExisting(slug, unitsSelected);
 	}
-
 </script>
 
 <style>
@@ -121,10 +106,11 @@
 </style>
 
 <section
-	class="w-full max-w-[111rem] mx-auto pt-[1.6rem] md:mb-[3.3rem] md:pt-[3.3rem] lg:pt-[7.9rem] px-[2.4rem]
-	md:px-[4rem] xl:px-0 mb-[12rem] lg:mb-[16rem]">
+	class="w-full max-w-[111rem] mx-auto pt-[1.6rem] md:mb-[3.3rem] md:pt-[3.3rem] lg:pt-[7.9rem]
+	px-[2.4rem] md:px-[4rem] xl:px-0 mb-[12rem] lg:mb-[16rem]">
 
-	<a sveltekit:prefetch
+	<a
+		sveltekit:prefetch
 		href="/products/{product.productType}"
 		class=" text-[1.5rem] leading-[2.5rem] text-black opacity-50 hover:opacity-75 h-max ">
 		Go Back
@@ -158,17 +144,21 @@
 				{product.topDescription}
 			</p>
 
-			<p class=" text-[1.8rem] tracking-[0.129rem] font-bold ">$ {product.price.toLocaleString()}</p>
+			<p class=" text-[1.8rem] tracking-[0.129rem] font-bold ">
+				$ {product.price.toLocaleString()}
+			</p>
 
 			<div class="flex gap-x-[1.6rem] ">
-				<UnitsCounter on:decrementUnits={decrementUnits} on:incrementUnits={incrementUnits} value={unitsSelected} />
-				<Button content="add to cart" btnType="primary" on:click={addToCart}/>
+				<UnitsCounter
+					on:decrementUnits={decrementUnits}
+					on:incrementUnits={incrementUnits}
+					value={unitsSelected} />
+				<Button content="add to cart" btnType="primary" on:click={addToCart} />
 			</div>
 		</div>
 	</div>
 
 	<!-- ABOVE HERE ==================================== -->
-
 
 	<div
 		class=" w-full flex flex-col gap-y-[8.8rem] mb-[12.1rem] md:mb-[15.3rem] lg:mb-[10.8rem]
@@ -214,18 +204,22 @@
 		{/each}
 	</div>
 
-	<div class="h-[98.3rem] w-full flex flex-col items-center gap-y-[4rem] md:h-[56.3rem] lg:h-[57.1rem] ">
+	<div
+		class="h-[98.3rem] w-full flex flex-col items-center gap-y-[4rem] md:h-[56.3rem] lg:h-[57.1rem] ">
 		<h2
 			class=" text-[2.4rem] leading-[3.6rem] tracking-[0.086px] font-bold uppercase md:text-[3.2rem]">
 			you may also like
 		</h2>
 		<div class="flex flex-col gap-y-[5.6rem] md:flex-row md:gap-x-[1.1rem] lg:gap-x-[3rem]">
 			{#each randomProducts as { productSlug, shortName }}
-				<a href="/product/{productSlug}" class=" w-full h-auto flex flex-col items-center gap-y-[3.2rem] md:gap-y-[4rem] group">
+				<a
+					href="/product/{productSlug}"
+					class=" w-full h-auto flex flex-col items-center gap-y-[3.2rem] md:gap-y-[4rem] group">
 					<img
 						src="/images/product-{productSlug}/{$size}/image-product.jpg"
 						alt=""
-						class=" w-full h-[12rem] object-contain object-center bg-lightGray  rounded-[0.8rem] md:h-[31.8rem]"  />
+						class=" w-full h-[12rem] object-contain object-center bg-lightGray rounded-[0.8rem]
+						md:h-[31.8rem]" />
 					<h2
 						class=" text-[2.4rem] leading-[3.6rem] tracking-[0.086px] font-bold uppercase
 						md:text-[3.2rem]">
