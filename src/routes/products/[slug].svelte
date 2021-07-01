@@ -30,7 +30,7 @@
 			<img
 				src="/images/category-{slug}/{$size}/image-{productCode}.jpg"
 				alt=""
-				class=" w-full max-w-[54rem] rounded-[0.8rem] h-[35.2rem] lg:w-[54rem] lg:h-[56rem] object-cover
+				class=" w-full  rounded-[0.8rem] h-[35.2rem] lg:w-[54rem] lg:h-[56rem] object-cover
 				object-center lg:flex-initial " />
 
 			<div class="text-container flex flex-col items-center gap-y-[2.4rem] lg:flex-initial justify-between
@@ -46,7 +46,7 @@
 					{displayName}
 				</h1>
 
-				<p class=" text-black opacity-50 font-normal leading-[2.5rem] text-[1.5rem] ">
+				<p class=" text-black opacity-50 font-normal leading-[2.5rem] text-[1.5rem] max-w-[57.2rem] ">
 					{topDescription}
 				</p>
 
