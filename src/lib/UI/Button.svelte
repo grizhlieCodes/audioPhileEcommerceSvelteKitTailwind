@@ -21,7 +21,7 @@
 			{content}
 		</button>
 	{:else}
-		<a
+		<a  on:click
 			sveltekit:prefetch
 			href={link}
 			class="text-[1.3rem] font-bold uppercase bg-darkOrange px-[3.4rem] py-[1.5rem]
