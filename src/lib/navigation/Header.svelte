@@ -79,19 +79,8 @@
 	a.desktop-link:hover::after {
 		opacity: 1;
 		transform: translateX(0);
-	}
+	}	
 
-	@supports (row-gap: 2rem) {
-		#cart-item-quantity {
-			row-gap: 2rem;
-		}
-	}
-
-	@supports not (row-gap: 2rem) {
-		#cart-item-quantity {
-			margin-bottom: 2rem;
-		}
-	}
 </style>
 
 <header class="h-[9rem] bg-[#191919] flex justify-center items-center z-20">
