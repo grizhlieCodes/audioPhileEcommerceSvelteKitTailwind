@@ -6,19 +6,19 @@
 
 	$: cartLength = $CartStore.length;
 
-	let cartItemQuantity = 0
-	function updateCartQuantity(cart){
-		if(cartLength === 0){
-			cartItemQuantity = 0
+	let cartItemQuantity = 0;
+	function updateCartQuantity(cart) {
+		if (cartLength === 0) {
+			cartItemQuantity = 0;
 		} else {
-			cartItemQuantity = 0
-			cart.forEach(item => {
-				cartItemQuantity = cartItemQuantity + item.unitsSelected
-			})
+			cartItemQuantity = 0;
+			cart.forEach((item) => {
+				cartItemQuantity = cartItemQuantity + item.unitsSelected;
+			});
 		}
 	}
 
-	$: updateCartQuantity($CartStore)
+	$: updateCartQuantity($CartStore);
 
 	let size = getContext('size');
 
@@ -80,15 +80,29 @@
 		opacity: 1;
 		transform: translateX(0);
 	}
+
+	@supports (row-gap: 2rem) {
+		#cart-item-quantity {
+			row-gap: 2rem;
+		}
+	}
+
+	@supports not (row-gap: 2rem) {
+		#cart-item-quantity {
+			margin-bottom: 2rem;
+		}
+	}
 </style>
 
 <header class="h-[9rem] bg-[#191919] flex justify-center items-center z-20">
-	<div id="header-inner-container"
+	<div
+		id="header-inner-container"
 		class="inner-container h-full w-full sm:max-w-[90%] xl:max-w-[111rem] flex items-center
 		justify-between border-b border-white px-[3.2rem] py-[2.4rem] lg:px-0 lg:py-0 border-opacity-20">
 
 		{#if $size !== 'desktop'}
-			<div id="header-mobile-nav"
+			<div
+				id="header-mobile-nav"
 				class="w-[1.6rem] h-full flex flex-col justify-center items-center gap-y-[3px]
 				cursor-pointer group"
 				on:click={toggleMenu}>
@@ -155,12 +169,15 @@
 			</div>
 		{/if}
 
-		<div id="cart-icon-container"
+		<div
+			id="cart-icon-container"
 			class="cart-icon-container cursor-pointer transition-all transform hover:rotate-12 relative"
 			on:click>
 			<img id="cart-icon" src="/images/shared/desktop/icon-cart.svg" alt="shopping cart icon" />
 			{#if cartLength !== 0}
-				<div id="cart-item-quantity" transition:fade={{duration:200}}
+				<div
+					id="cart-item-quantity"
+					transition:fade={{ duration: 200 }}
 					class=" absolute top-0 right-0 w-full h-full transform -translate-y-2/4 translate-x-2/4
 					rounded-full bg-darkOrange grid place-items-center text-white font-bold text-[1.5rem] ">
 					{cartItemQuantity}
@@ -173,7 +190,8 @@
 
 {#if $size !== 'desktop'}
 	{#if menuOpened}
-		<div id="mobile-menu-container"
+		<div
+			id="mobile-menu-container"
 			class="mobile-menu-container fixed top-[9rem] w-full left-0 h-auto z-30 bg-white
 			rounded-br-[8px] rounded-bl-[8px] px-[2.4rem] py-[3.5rem]"
 			transition:fade={{ duration: 150 }}>
