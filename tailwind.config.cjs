@@ -21,13 +21,9 @@ module.exports = {
         darkOrange: '#D87D4A',
         darkGray: '#101010',
         lightGray: '#F1F1F1',
-        nearWhite: '#FAFAFA',
+        nearWhite: '#F1F1F1',
         lightOrange: '#fbaf85'
       },
-      // screens: {
-      //   mTab: '400px',
-      //   ...defaultTheme.screens,
-      // },
       backgroundImage: theme => ({
         'home-zx9-mob': "url('./static/images/')"
       })
