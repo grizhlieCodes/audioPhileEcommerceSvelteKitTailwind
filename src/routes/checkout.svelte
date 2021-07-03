@@ -3,23 +3,10 @@
 	import Radio from '$lib/checkout/RadioInput.svelte';
 	import { fly } from 'svelte/transition';
 	import {createEventDispatcher, onMount, onDestroy} from 'svelte'
-	const dispatch = createEventDispatcher();
-
-	onMount(() => {
-		dispatch('toggleBottomAbout')
-	})
-	onDestroy(() => {
-		dispatch('toggleBottomAbout')
-	})
-
 
 	let name, email, tel, address, zip, city, country;
-
 	let selectedPayment, eMoneyNumber, eMoneyPin;
 
-	$: console.log(selectedPayment, eMoneyNumber, eMoneyPin);
-
-	$: console.log(selectedPayment);
 
 	const updateName = (e) => {
 		name = e.target.value;
