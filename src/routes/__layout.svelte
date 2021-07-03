@@ -10,6 +10,8 @@
 	let size = writable('');
 	setContext('size', size);
 
+	let currentTitle
+
 	$: if (width >= 1024) {
 		size.set('desktop');
 	} else if (width >= 768) {
@@ -26,7 +28,9 @@
 
 	onMount(() => {
 		CartStore.setStoreFromLocalStorage();
+		currentTitle = document.title
 	});
+
 </script>
 
 <style>
@@ -49,12 +53,12 @@
 <svelte:window bind:innerWidth={width} />
 
 <Header on:click={toggleCart} />
-<main class=" relative ">
+<main class=" relative bg-nearWhite">
 	{#if showCart}
 		<Cart on:toggleCart={toggleCart} />
 	{/if}
 
-	<slot />
+	<slot/>
 
 </main>
-<Footer />
+<Footer {currentTitle}/>

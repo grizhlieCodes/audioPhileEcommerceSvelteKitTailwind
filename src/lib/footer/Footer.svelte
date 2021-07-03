@@ -3,7 +3,7 @@
 	import { getContext } from 'svelte';
 	let size = getContext('size');
 
-	export let showBottomAbout = true;
+	export let showBottomAbout = true, currentTitle;
 
 	let socialLinks = ['facebook', 'twitter', 'instagram'];
 
@@ -31,7 +31,7 @@
 	/* your styles go here */
 </style>
 
-{#if showBottomAbout}
+{#if currentTitle !== 'Checkout'}
 	<BottomAbout />
 {/if}
 
