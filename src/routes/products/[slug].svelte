@@ -18,14 +18,20 @@
 	import data from '$lib/products/products.js';
 	export let slug;
 
+	$: title = slug
+
 	let products = $data;
 </script>
+
+<svelte:head>
+	<title>Audiophile: {title}</title>
+</svelte:head>
 
 <section class=" flex flex-col items-center gap-y-[12rem] w-full max-w-[111rem] mx-auto pt-[16rem] mb-[16rem]">
 	{#each products.filter((product) => product.productType === slug) as { displayName, newProduct, productCode, topDescription, productSlug }}
 		<article
 			class="w-full h-auto px-[2.4rem] gap-y-[3.2rem] flex flex-col text-center 
-                    lg:flex-row lg:even:flex-row-reverse lg:justify-between lg:gap-x-[12.5rem]">
+                    lg:flex-row lg:even:flex-row-reverse lg:justify-between lg:gap-x-[12.5rem] ">
 
 			<img
 				src="/images/category-{slug}/{$size}/image-{productCode}.jpg"

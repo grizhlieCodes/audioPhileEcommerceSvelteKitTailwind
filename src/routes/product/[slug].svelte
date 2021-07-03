@@ -37,10 +37,11 @@
 	export let randomProducts;
 	import UnitsCounter from '$lib/UI/UnitsCounter.svelte';
 	import ProductCatCards from '$lib/navigation/ProductCatCards.svelte';
-	import { getContext } from 'svelte';
 	import Button from '$lib/UI/Button.svelte';
 	import productCart from '$lib/products/cartStore.js';
-
+	
+	import { getContext } from 'svelte';
+	$: title = product.displayName.toUpperCase()
 	let size = getContext('size');
 
 	let products = $data;
@@ -105,6 +106,12 @@
 	}
 </style>
 
+
+
+<svelte:head>
+	<title>Audiophile: {title}</title>
+</svelte:head>
+
 <section
 	class="w-full max-w-[111rem] mx-auto pt-[1.6rem] md:mb-[3.3rem] md:pt-[3.3rem] lg:pt-[7.9rem]
 	px-[2.4rem] md:px-[4rem] xl:px-0 mb-[12rem] lg:mb-[16rem]">
@@ -158,8 +165,6 @@
 		</div>
 	</div>
 
-	<!-- ABOVE HERE ==================================== -->
-
 	<div
 		class=" w-full flex flex-col gap-y-[8.8rem] mb-[12.1rem] md:mb-[15.3rem] lg:mb-[10.8rem]
 		lg:flex-row lg:gap-x-[12.5rem] ">
@@ -192,8 +197,6 @@
 		</div>
 
 	</div>
-
-	<!-- See actual styling, not tailwind -->
 
 	<div class="gallery-grid mb-[12rem] lg:mb-[16rem]">
 		{#each product.imageGallery as image}
