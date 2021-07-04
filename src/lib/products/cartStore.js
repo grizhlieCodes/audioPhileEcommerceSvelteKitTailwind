@@ -26,7 +26,10 @@ const customCart = {
             return store
         })
     },
-    deleteAllItems: () => cart.set([]),
+    deleteAllItems: () => {
+        cart.set([])
+        localStorage.removeItem('productsStore')
+    },
     addNewItemOrUpdateExisting: (slug, quantity) => {
         let itemToBeUpdated = customCart.updateQuantityItemIfAlreadyInCart(slug, quantity)
         let itemToBeAdded = itemToBeUpdated === false
@@ -63,6 +66,7 @@ const customCart = {
     },
     setStoreFromLocalStorage: () => {
         let storeItems = JSON.parse(localStorage.getItem('productsStore'))
+        console.log(storeItems)
         if(!storeItems){
             return
         } else {
