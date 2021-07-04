@@ -114,7 +114,7 @@
 
 <section
 	class="w-full max-w-[111rem] mx-auto pt-[1.6rem] md:mb-[3.3rem] md:pt-[3.3rem] lg:pt-[7.9rem]
-	px-[2.4rem] md:px-[4rem] xl:px-0 mb-[12rem] lg:mb-[16rem]">
+	px-[2.4rem] md:px-[4rem] xl:px-0 mb-[12rem] lg:mb-[16rem] bg-white">
 
 	<a
 		sveltekit:prefetch
