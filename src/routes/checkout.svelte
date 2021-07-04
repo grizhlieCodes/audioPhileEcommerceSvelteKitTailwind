@@ -98,7 +98,7 @@
 			grid:
 				'link link' min-content
 				'checkout summary' min-content
-				'checkout info' 1fr / minmax(69rem, 1fr) 1fr;
+				'checkout info' 1fr / minmax(73rem, 1fr) 1fr;
 			gap: 3rem;
 		}
 	}
@@ -252,7 +252,7 @@
 		</div>
 
 		<div class="info" in:fly={{ y: 25, duration: 300, delay: 750 }}>
-			{#if selectedPayment && $size === 'desktop'}
+			{#if selectedPayment === 'eMoney' && $size === 'desktop'}
 				<div
 					transition:fly={{ x: 150, duration: 250 }}
 					class=" w-full h-full bg-white z-50 rounded-[0.8rem] md:right-[2.4rem] px-[2.8rem]
@@ -318,3 +318,11 @@
 	{/if}
 
 </section>
+
+
+<!-- User hovers over a link or user goes into a link
+
+	All html is rendered on server-side
+
+	Then the html is 'hydrated' -> JS is then added on top of HTML.
+-->
