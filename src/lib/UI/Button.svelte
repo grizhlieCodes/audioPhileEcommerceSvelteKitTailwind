@@ -1,6 +1,7 @@
 <script>
 	export let content,
 		btnType,
+		type = 'button',
 		link = '';
 </script>
 
@@ -17,11 +18,13 @@
 		<button
 			class="text-[1.3rem] font-bold uppercase bg-darkOrange px-[3.4rem] py-[1.5rem]
 			hover:bg-lightOrange text-white tracking-[1px] transition-all w-max"
-			on:click>
+			on:click
+			{type}>
 			{content}
 		</button>
 	{:else}
-		<a  on:click
+		<a
+			on:click
 			sveltekit:prefetch
 			href={link}
 			class="text-[1.3rem] font-bold uppercase bg-darkOrange px-[3.4rem] py-[1.5rem]
@@ -62,10 +65,24 @@
 	</a>
 {:else if btnType === 'fullWidthPrimary'}
 
-	<button
-		class="text-[1.3rem] font-bold uppercase bg-darkOrange px-[3.4rem] py-[1.5rem]
-		hover:bg-lightOrange text-white tracking-[1px] transition-all w-full"
-		on:click>
-		{content}
-	</button>
+	{#if link !== ''}
+		<a
+			href={link}
+			class="text-[1.3rem] font-bold uppercase bg-darkOrange px-[3.4rem] py-[1.5rem]
+			hover:bg-lightOrange text-white tracking-[1px] transition-all w-full text-center"
+			on:click
+			type>
+			{content}
+		</a>
+		<!-- content here -->
+	{:else}
+		<!-- else content here -->
+		<button
+			class="text-[1.3rem] font-bold uppercase bg-darkOrange px-[3.4rem] py-[1.5rem]
+			hover:bg-lightOrange text-white tracking-[1px] transition-all w-full text-center"
+			on:click
+			type>
+			{content}
+		</button>
+	{/if}
 {/if}
