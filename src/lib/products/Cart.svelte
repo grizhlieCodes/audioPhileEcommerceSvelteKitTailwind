@@ -111,6 +111,6 @@
 		<h3 class=" text-[1.8rem] text-black font-bold">$ {total.toLocaleString()}</h3>
 	</div>
 
-	<Button content="checkout" on:click btnType="fullWidthPrimary" />
+	<Button content="checkout" on:click={() => dispatch('toggleCart')} btnType="fullWidthPrimary" link="/checkout" disabled={cartEmpty}/>
 
 </div>
