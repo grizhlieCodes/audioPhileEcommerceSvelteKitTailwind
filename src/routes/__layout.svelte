@@ -12,6 +12,7 @@
 
 	let currentTitle
 
+
 	$: if (width >= 1024) {
 		size.set('desktop');
 	} else if (width >= 768) {
@@ -30,6 +31,7 @@
 		CartStore.setStoreFromLocalStorage();
 		currentTitle = document.title
 	});
+
 
 </script>
 
@@ -53,7 +55,7 @@
 <svelte:window bind:innerWidth={width} />
 
 <Header on:click={toggleCart} />
-<main class=" relative bg-nearWhite">
+<main class=" relative transition-all">
 	{#if showCart}
 		<Cart on:toggleCart={toggleCart} />
 	{/if}
