@@ -2,31 +2,9 @@
 	import Input from '$lib/checkout/NormalInput.svelte';
 	import Radio from '$lib/checkout/RadioInput.svelte';
 	import { fly } from 'svelte/transition';
-	import {createEventDispatcher, onMount, onDestroy} from 'svelte'
-<<<<<<< HEAD
 
 	let name, email, tel, address, zip, city, country;
 	let selectedPayment, eMoneyNumber, eMoneyPin;
-
-=======
-	const dispatch = createEventDispatcher();
-
-	onMount(() => {
-		dispatch('toggleBottomAbout')
-	})
-	onDestroy(() => {
-		dispatch('toggleBottomAbout')
-	})
-
-
-	let name, email, tel, address, zip, city, country;
-
-	let selectedPayment, eMoneyNumber, eMoneyPin;
-
-	$: console.log(selectedPayment, eMoneyNumber, eMoneyPin);
-
-	$: console.log(selectedPayment);
->>>>>>> 40df07281bdbbaadbee2783a44c9fadb8d094547
 
 	const updateName = (e) => {
 		name = e.target.value;
