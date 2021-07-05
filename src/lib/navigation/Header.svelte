@@ -3,6 +3,7 @@
 	import ProductCatCards from '$lib/navigation/ProductCatCards.svelte';
 	import { fade } from 'svelte/transition';
 	import CartStore from '$lib/products/cartStore.js';
+	import Cart from '$lib/products/Cart.svelte';
 
 	$: cartLength = $CartStore.length;
 
@@ -48,6 +49,13 @@
 	];
 
 	$: if ($size === 'desktop') menuOpened = false;
+
+	let showCart = false;
+
+	function toggleCart() {
+		showCart = !showCart;
+		console.log(showCart)
+	}
 </script>
 
 <style>
@@ -79,15 +87,15 @@
 	a.desktop-link:hover::after {
 		opacity: 1;
 		transform: translateX(0);
-	}	
-
+	}
 </style>
 
 <header class="h-[9rem] bg-[#191919] flex justify-center items-center z-20">
 	<div
 		id="header-inner-container"
 		class="inner-container h-full w-full sm:max-w-[90%] xl:max-w-[111rem] flex items-center
-		justify-between border-b border-white px-[3.2rem] py-[2.4rem] lg:px-0 lg:py-0 border-opacity-20">
+		justify-between border-b border-white px-[3.2rem] py-[2.4rem] lg:px-0 lg:py-0 border-opacity-20 relative"
+		>
 
 		{#if $size !== 'desktop'}
 			<div
@@ -161,7 +169,7 @@
 		<div
 			id="cart-icon-container"
 			class="cart-icon-container cursor-pointer transition-all transform hover:rotate-12 relative"
-			on:click>
+			on:click={toggleCart}>
 			<img id="cart-icon" src="/images/shared/desktop/icon-cart.svg" alt="shopping cart icon" />
 			{#if cartLength !== 0}
 				<div
@@ -173,6 +181,10 @@
 				</div>
 			{/if}
 		</div>
+
+		{#if showCart}
+			<Cart on:toggleCart={toggleCart} />
+		{/if}
 
 	</div>
 </header>
