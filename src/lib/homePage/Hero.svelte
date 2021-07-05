@@ -1,7 +1,7 @@
 <script>
 	let innerHeight;
 	let localSize;
-	import Button from '$lib/UI/Button.svelte';
+	import Button from '$lib/ui/Button.svelte';
 
 	$: if (innerHeight >= 1000) {
 		localSize = 'desktop';

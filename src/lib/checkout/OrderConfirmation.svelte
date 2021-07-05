@@ -1,5 +1,5 @@
 <script>
-	import Button from '$lib/UI/Button.svelte';
+	import Button from '$lib/ui/Button.svelte';
 	import { fly, fade, slide } from 'svelte/transition';
 	import { onDestroy, createEventDispatcher } from 'svelte';
 	import CartStore from '$lib/products/cartStore.js';
