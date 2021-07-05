@@ -4,7 +4,7 @@
 	import { fly, slide } from 'svelte/transition';
 	import Summary from '$lib/checkout/Summary.svelte';
 	import { getContext, onMount, onDestroy, createEventDispatcher } from 'svelte';
-	import Button from '$lib/ui/Button.svelte';
+	import Button from '$lib/UI/Button.svelte';
 	import OrderConfirmation from '$lib/checkout/OrderConfirmation.svelte';
 	import isNotEmpty from '$lib/checkout/isNotEmpty';
 	import emailValid from '$lib/checkout/emailValid';

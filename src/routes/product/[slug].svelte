@@ -34,9 +34,9 @@
 	export let slug;
 	export let product;
 	export let randomProducts;
-	import UnitsCounter from '$lib/ui/UnitsCounter.svelte';
+	import UnitsCounter from '$lib/UI/UnitsCounter.svelte';
 	import ProductCatCards from '$lib/navigation/ProductCatCards.svelte';
-	import Button from '$lib/ui/Button.svelte';
+	import Button from '$lib/UI/Button.svelte';
 	import productCart from '$lib/products/cartStore.js';
 	import { onMount } from 'svelte';
 

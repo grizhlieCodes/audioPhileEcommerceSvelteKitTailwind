@@ -11,7 +11,7 @@
 
 <script>
 	import { getContext } from 'svelte';
-	import Button from '$lib/ui/Button.svelte';
+	import Button from '$lib/UI/Button.svelte';
 	import ProductCatCards from '$lib/navigation/ProductCatCards.svelte';
 	let size = getContext('size');
 
