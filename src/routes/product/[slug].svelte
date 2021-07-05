@@ -16,7 +16,6 @@
 	import productStore from '$lib/products/products.js';
 	export async function load({ page }) {
 		const slug = page.params.slug;
-		console.log(slug);
 		const products = get(productStore);
 		let randomProducts = generateRandomProducts(slug, products);
 		const product = products.filter((p) => p.productSlug === slug)[0];

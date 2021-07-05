@@ -66,7 +66,6 @@ const customCart = {
     },
     setStoreFromLocalStorage: () => {
         let storeItems = JSON.parse(localStorage.getItem('productsStore'))
-        console.log(storeItems)
         if(!storeItems){
             return
         } else {
