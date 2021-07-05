@@ -5,9 +5,12 @@
 	import Summary from '$lib/checkout/Summary.svelte';
 	import { getContext, onMount, onDestroy, createEventDispatcher } from 'svelte';
 	import Button from '$lib/UI/Button.svelte';
-	import OrderConfirmation from '$lib/checkout/OrderConfirmation.svelte';
+	import OrderCompleted from '$lib/checkout/OrderCompleted.svelte';
 	import isNotEmpty from '$lib/checkout/isNotEmpty';
 	import emailValid from '$lib/checkout/emailValid';
+	import userStore from '$lib/checkout/userStore.js';
+import OrderConfirmation from '$lib/checkout/OrderConfirmation.svelte';
+
 	const dispatch = createEventDispatcher();
 
 	let size = getContext('size');
@@ -215,6 +218,18 @@
 				'checkout info' 1fr / minmax(73rem, 1fr) 1fr;
 			gap: 3rem;
 		}
+
+		#checkout-section.order-confirmation {
+			grid: 
+			'link' min-content
+			'confirmation '1fr / 1fr;
+			place-items: center;
+		}
+
+		#back-button {
+			justify-self: start;
+		}
+
 	}
 </style>
 
@@ -229,18 +244,18 @@
 	</style>
 </svelte:head>
 <section
-	id="checkout-section"
+	id="checkout-section" class:order-confirmation={hideCheckout}
 	class="w-full max-w-[111rem] mx-auto pt-[1.6rem] pb-[9.7rem] md:pb-[11.6rem] md:pt-[3.3rem]
 	lg:pt-[7.9rem] px-[2.4rem] md:px-[4rem] xl:px-0 lg:mb-0 lg:pb-[16rem] grid gap-[3.2rem]">
 
-	<a
+	<a   id="back-button"
 		sveltekit:prefetch
 		href="/"
 		class=" text-[1.5rem] leading-[2.5rem] text-black opacity-50 hover:opacity-75 mb-[2.4rem] ">
 		Go Back
 	</a>
 
-	{#if contentReady}
+	{#if contentReady && !hideCheckout}
 		<form
 			on:submit={finalCheckout}
 			in:fly={{ x: -100, duration: 450, delay: 300 }}
@@ -266,24 +281,24 @@
 						placeholder="Alexei Ward"
 						value={name}
 						on:input={updateName}
-						isValid={isNameValid} 
-						touched={nameTouched}/>
+						isValid={isNameValid}
+						touched={nameTouched} />
 					<Input
 						name="Email Address"
 						type="email"
 						placeholder="alexei@mail.com"
 						value={email}
 						on:input={updateEmail}
-						isValid={isEmailValid} 
-						touched={emailTouched}/>
+						isValid={isEmailValid}
+						touched={emailTouched} />
 					<Input
 						name="Phone Number"
 						type="tel"
 						placeholder="+1 202-555-0136"
 						value={tel}
 						on:input={updateTel}
-						isValid={isTelValid} 
-						touched={telTouched}/>
+						isValid={isTelValid}
+						touched={telTouched} />
 				</div>
 			</div>
 			<div class="">
@@ -300,32 +315,32 @@
 						width="full"
 						value={address}
 						on:input={updateAddress}
-						isValid={isAddressValid} 
-						touched={addressTouched}/>
+						isValid={isAddressValid}
+						touched={addressTouched} />
 					<Input
 						name="ZIP Code"
 						type="text"
 						placeholder="10001"
 						value={zip}
 						on:input={updateZip}
-						isValid={isZipValid} 
-						touched={zipTouched}/>
+						isValid={isZipValid}
+						touched={zipTouched} />
 					<Input
 						name="City"
 						type="text"
 						placeholder="New York"
 						value={city}
 						on:input={updateCity}
-						isValid={isCityValid} 
-						touched={cityTouched}/>
+						isValid={isCityValid}
+						touched={cityTouched} />
 					<Input
 						name="Country"
 						type="text"
 						placeholder="United States"
 						value={country}
 						on:input={updateCountry}
-						isValid={isCountryValid} 
-						touched={countryTouched}/>
+						isValid={isCountryValid}
+						touched={countryTouched} />
 				</div>
 			</div>
 			<div class="">
@@ -360,16 +375,16 @@
 							placeholder="238512381"
 							value={eMoneyNumber}
 							on:input={updateEmoneyNumber}
-							isValid={isEmoneyNumberValid} 
-							touched={eMoneyNumberTouched}/>
+							isValid={isEmoneyNumberValid}
+							touched={eMoneyNumberTouched} />
 						<Input
 							name="e-Money PIN"
 							type="number"
 							placeholder="United States"
 							value={eMoneyPin}
 							on:input={updateEmoneyPin}
-							isValid={isEmoneyPinValid} 
-							touched={eMoneyPinTouched}/>
+							isValid={isEmoneyPinValid}
+							touched={eMoneyPinTouched} />
 					</div>
 				{/if}
 			</div>
@@ -451,10 +466,13 @@
 				</div>
 			{/if}
 		</div>
+
+	{:else if contentReady && hideCheckout}
+		<OrderConfirmation />
 	{/if}
 
-	{#if showOrderConfirmation}
-		<OrderConfirmation on:closeOrderConfirmation={() => (showOrderConfirmation = false)} />
+	{#if orderComplete}
+		<OrderCompleted on:closeOrderConfirmation={() => (orderComplete = false)} />
 	{/if}
 
 </section>
