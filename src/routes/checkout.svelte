@@ -23,30 +23,51 @@
 		eMoneyNumber = '',
 		eMoneyPin = '';
 
-	let isNameValid = true;
-	let isEmailValid = true;
-	let isTelValid = true;
-	let isAddressValid = true;
-	let isZipValid = true;
-	let isCityValid = true;
-	let isCountryValid = true;
-	let isEmoneyNumberValid = true;
-	let isEmoneyPinValid = true;
+	$: isNameValid = isNotEmpty(name);
+	$: isEmailValid = emailValid(email);
+	$: isTelValid = isNotEmpty(tel);
+	$: isAddressValid = isNotEmpty(address);
+	$: isZipValid = isNotEmpty(zip);
+	$: isCityValid = isNotEmpty(city);
+	$: isCountryValid = isNotEmpty(country);
+	$: isEmoneyNumberValid = isNotEmpty(eMoneyNumber);
+	$: isEmoneyPinValid = isNotEmpty(eMoneyPin);
+
+	let nameTouched,
+		emailTouched,
+		telTouched,
+		addressTouched,
+		zipTouched,
+		cityTouched,
+		countryTouched,
+		eMoneyNumberTouched,
+		eMoneyPinTouched;
 
 	let dataValid;
 
 	const validateData = () => {
+		nameTouched = true;
+		emailTouched = true;
+		telTouched = true;
+		addressTouched = true;
+		zipTouched = true;
+		cityTouched = true;
+		countryTouched = true;
 		isNameValid = isNotEmpty(name);
 		isEmailValid = emailValid(email);
 		isTelValid = isNotEmpty(tel);
 		isAddressValid = isNotEmpty(address);
-		isZipValid = isNotEmpty(name);
-		isCityValid = isNotEmpty(name);
-		isCountryValid = isNotEmpty(name);
-		if(selectedPayment === 'eMoney'){
-			isEmoneyNumberValid = isNotEmpty(name);
-			isEmoneyPinValid = isNotEmpty(name);
-		} else if (selectedPayment === 'cash'){
+		isZipValid = isNotEmpty(zip);
+		isCityValid = isNotEmpty(city);
+		isCountryValid = isNotEmpty(country);
+		if (selectedPayment === 'eMoney') {
+			eMoneyNumberTouched = true;
+			eMoneyPinTouched = true;
+			isEmoneyNumberValid = isNotEmpty(eMoneyNumber);
+			isEmoneyPinValid = isNotEmpty(eMoneyPin);
+		} else if (selectedPayment === 'cash') {
+			eMoneyNumberTouched = false;
+			eMoneyPinTouched = false;
 			isEmoneyNumberValid = true;
 			isEmoneyPinValid = true;
 		}
@@ -207,21 +228,24 @@
 						placeholder="Alexei Ward"
 						value={name}
 						on:input={updateName}
-						isValid={isNameValid} />
+						isValid={isNameValid} 
+						touched={nameTouched}/>
 					<Input
 						name="Email Address"
 						type="email"
 						placeholder="alexei@mail.com"
 						value={email}
 						on:input={updateEmail}
-						isValid={isEmailValid} />
+						isValid={isEmailValid} 
+						touched={emailTouched}/>
 					<Input
 						name="Phone Number"
 						type="tel"
 						placeholder="+1 202-555-0136"
 						value={tel}
 						on:input={updateTel}
-						isValid={isTelValid} />
+						isValid={isTelValid} 
+						touched={telTouched}/>
 				</div>
 			</div>
 			<div class="">
@@ -237,23 +261,33 @@
 						placeholder="1137 Williams Avenue"
 						width="full"
 						value={address}
-						on:input={updateAddress} 
-						isValid={isAddressValid}/>
-					<Input name="ZIP Code" type="text" placeholder="10001" value={zip} on:input={updateZip} isValid={isZipValid}/>
+						on:input={updateAddress}
+						isValid={isAddressValid} 
+						touched={addressTouched}/>
+					<Input
+						name="ZIP Code"
+						type="text"
+						placeholder="10001"
+						value={zip}
+						on:input={updateZip}
+						isValid={isZipValid} 
+						touched={zipTouched}/>
 					<Input
 						name="City"
 						type="text"
 						placeholder="New York"
 						value={city}
-						on:input={updateCity} 
-						isValid={isCityValid}/>
+						on:input={updateCity}
+						isValid={isCityValid} 
+						touched={cityTouched}/>
 					<Input
 						name="Country"
 						type="text"
 						placeholder="United States"
 						value={country}
-						on:input={updateCountry} 
-						isValid={isCountryValid}/>
+						on:input={updateCountry}
+						isValid={isCountryValid} 
+						touched={countryTouched}/>
 				</div>
 			</div>
 			<div class="">
@@ -287,15 +321,17 @@
 							type="number"
 							placeholder="238512381"
 							value={eMoneyNumber}
-							on:input={updateEmoneyNumber} 
-							isValid={isEmoneyNumberValid}/>
+							on:input={updateEmoneyNumber}
+							isValid={isEmoneyNumberValid} 
+							touched={eMoneyNumberTouched}/>
 						<Input
 							name="e-Money PIN"
 							type="number"
 							placeholder="United States"
 							value={eMoneyPin}
-							on:input={updateEmoneyPin} 
-							isValid={isEmoneyPinValid}/>
+							on:input={updateEmoneyPin}
+							isValid={isEmoneyPinValid} 
+							touched={eMoneyPinTouched}/>
 					</div>
 				{/if}
 			</div>
