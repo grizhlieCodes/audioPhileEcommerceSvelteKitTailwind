@@ -45,6 +45,18 @@
 		tempQuantity = 0;
 	};
 
+	let showAddItemMessage = false
+
+
+	function checkout(){
+		if(cartEmpty){
+			showAddItemMessage = true
+		} else {
+			showAddItemMessage = false
+			dispatch('toggleCart')
+		}
+	}
+
 </script>
 
 <style>
@@ -80,6 +92,11 @@
 
 	{#if cartEmpty}
 		<h3 class=" text-[1.8rem] font-bold my-[6rem] text-center ">No items added yet 🛒😊🎁</h3>
+		
+		{#if showAddItemMessage}
+			 <h3 class=" text-[1.8rem] font-bold my-[6rem] text-center ">Please add an item to checkout!</h3>
+		{/if}
+		
 	{:else}
 		<!-- else content here -->
 
@@ -111,6 +128,6 @@
 		<h3 class=" text-[1.8rem] text-black font-bold">$ {total.toLocaleString()}</h3>
 	</div>
 
-	<Button content="checkout" on:click={() => dispatch('toggleCart')} btnType="fullWidthPrimary" link="/checkout" disabled={cartEmpty}/>
+	<Button content="checkout" on:click={checkout} btnType="fullWidthPrimary" link="/checkout" isDisabled={cartEmpty}/>
 
 </div>
