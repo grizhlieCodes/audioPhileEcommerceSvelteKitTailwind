@@ -38,9 +38,14 @@
 	import ProductCatCards from '$lib/navigation/ProductCatCards.svelte';
 	import Button from '$lib/UI/Button.svelte';
 	import productCart from '$lib/products/cartStore.js';
-	
+	import { onMount } from 'svelte';
+
+	let pageReady = false;
+	onMount(() => {
+		pageReady = true;
+	});
 	import { getContext } from 'svelte';
-	$: title = product.displayName.toUpperCase()
+	$: title = product.displayName.toUpperCase();
 	let size = getContext('size');
 
 	let products = $data;
@@ -104,8 +109,6 @@
 		}
 	}
 </style>
-
-
 
 <svelte:head>
 	<title>Audiophile: {title}</title>
