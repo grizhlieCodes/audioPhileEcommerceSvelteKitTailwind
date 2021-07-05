@@ -55,10 +55,10 @@
 <svelte:window bind:innerWidth={width} />
 
 <Header on:click={toggleCart} />
+{#if showCart}
+	<Cart on:toggleCart={toggleCart} />
+{/if}
 <main class=" relative transition-all">
-	{#if showCart}
-		<Cart on:toggleCart={toggleCart} />
-	{/if}
 
 	<slot/>
 
