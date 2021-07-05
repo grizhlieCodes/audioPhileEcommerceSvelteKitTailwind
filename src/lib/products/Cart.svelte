@@ -30,6 +30,7 @@
 	const deleteAllItems = () => {
 		total = 0;
 		CartStore.deleteAllItems();
+		dispatch('toggleCart')
 	};
 
 	let tempQuantity;
