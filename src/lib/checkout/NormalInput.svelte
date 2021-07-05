@@ -56,7 +56,7 @@
 	</div>
 {:else}
 	<!-- else content here -->
-	<div class="input-field min-w-[28rem] flex-auto lg:max-w-[33.3rem]">
+	<div class="input-field min-w-[28rem] flex-auto lg:max-w-[30.9rem]">
 		<div class="container flex flex-row justify-between w-full items-center mb-[0.9rem] ">
 			<p class=" text-[1.2rem] font-bold tracking-[-0.21px] ">{name}</p>
 			{#if !isValid && touched }
