@@ -33,6 +33,25 @@
 	$: isEmoneyNumberValid = isNotEmpty(eMoneyNumber);
 	$: isEmoneyPinValid = isNotEmpty(eMoneyPin);
 
+	let userData;
+
+	const updateUserData = () => {
+		userData = {
+			name,
+			name,
+			email,
+			tel,
+			address,
+			zip,
+			city,
+			country,
+			selectedPayment,
+			eMoneyNumber,
+			eMoneyPin
+		};
+		userStore.updateUserInfo(userData);
+	};
+
 	let nameTouched,
 		emailTouched,
 		telTouched,
@@ -84,62 +103,81 @@
 			isEmoneyPinValid;
 	};
 
-	// $: console.log(`
-	// 	name: ${name}
-	// 	email: ${email}
-	// 	tel: ${tel}
-	// 	address: ${address}
-	// 	zip: ${zip}
-	// 	city: ${city}
-	// 	country: ${country}
-	// 	selectedPayment: ${selectedPayment}
-	// 	eMoneyNumber: ${eMoneyNumber}
-	// 	eMoneyPin: ${eMoneyPin}
-	// `)
-
 	const updateName = (e) => {
 		name = e.target.value;
+		updateUserData();
 	};
 	const updateEmail = (e) => {
 		email = e.target.value;
+		updateUserData();
 	};
 	const updateTel = (e) => {
 		tel = e.target.value;
+		updateUserData();
 	};
 	const updateAddress = (e) => {
 		address = e.target.value;
+		updateUserData();
 	};
 	const updateZip = (e) => {
 		zip = e.target.value;
+		updateUserData();
 	};
 	const updateCity = (e) => {
 		city = e.target.value;
+		updateUserData();
 	};
 	const updateCountry = (e) => {
 		country = e.target.value;
+		updateUserData();
 	};
 	const updateEmoneyNumber = (e) => {
 		eMoneyNumber = e.target.value;
+		updateUserData();
 	};
 	const updateEmoneyPin = (e) => {
 		eMoneyPin = e.target.value;
+		updateUserData();
 	};
+
+	let hideCheckout = true
 
 	const finalCheckout = (e) => {
 		e.preventDefault();
 		validateData();
 		if (dataValid) {
+			//Hide all grid items and show 'order-confirmation'
 			showOrderConfirmation = true;
 		} else {
 			return;
 		}
 	};
 
-	let showOrderConfirmation = false;
+	let orderComplete = false;
 
 	let contentReady = false;
 
-	onMount(() => (contentReady = true));
+	const updateInputsWithUserStoreOnLoad = () => {
+		name = $userStore.name;
+		email = $userStore.email;
+		tel = $userStore.tel;
+		address = $userStore.address;
+		zip = $userStore.zip;
+		city = $userStore.city;
+		country = $userStore.country;
+		selectedPayment = $userStore.selectedPayment;
+		eMoneyNumber = $userStore.eMoneyNumber;
+		eMoneyPin = $userStore.eMoneyPin;
+	};
+
+	onMount(() => {
+		contentReady = true;
+		userStore.setUserFromLocalStorage();
+		if ($userStore) {
+			updateInputsWithUserStoreOnLoad();
+		}
+	});
+
 </script>
 
 <style>
