@@ -1,17 +1,67 @@
 <script>
 	import Input from '$lib/checkout/NormalInput.svelte';
 	import Radio from '$lib/checkout/RadioInput.svelte';
-	import { fly } from 'svelte/transition';
+	import { fly, slide } from 'svelte/transition';
 	import Summary from '$lib/checkout/Summary.svelte';
 	import { getContext, onMount, onDestroy, createEventDispatcher } from 'svelte';
 	import Button from '$lib/ui/Button.svelte';
 	import OrderConfirmation from '$lib/checkout/OrderConfirmation.svelte';
+	import isNotEmpty from '$lib/checkout/isNotEmpty';
+	import emailValid from '$lib/checkout/emailValid';
 	const dispatch = createEventDispatcher();
 
 	let size = getContext('size');
 
-	let name, email, tel, address, zip, city, country;
-	let selectedPayment, eMoneyNumber, eMoneyPin;
+	let name = '',
+		email = '',
+		tel = '',
+		address = '',
+		zip = '',
+		city = '',
+		country = '';
+	let selectedPayment,
+		eMoneyNumber = '',
+		eMoneyPin = '';
+
+	let isNameValid = true;
+	let isEmailValid = true;
+	let isTelValid = true;
+	let isAddressValid = true;
+	let isZipValid = true;
+	let isCityValid = true;
+	let isCountryValid = true;
+	let isEmoneyNumberValid = true;
+	let isEmoneyPinValid = true;
+
+	let dataValid;
+
+	const validateData = () => {
+		isNameValid = isNotEmpty(name);
+		isEmailValid = emailValid(email);
+		isTelValid = isNotEmpty(tel);
+		isAddressValid = isNotEmpty(address);
+		isZipValid = isNotEmpty(name);
+		isCityValid = isNotEmpty(name);
+		isCountryValid = isNotEmpty(name);
+		if(selectedPayment === 'eMoney'){
+			isEmoneyNumberValid = isNotEmpty(name);
+			isEmoneyPinValid = isNotEmpty(name);
+		} else if (selectedPayment === 'cash'){
+			isEmoneyNumberValid = true;
+			isEmoneyPinValid = true;
+		}
+
+		dataValid =
+			isNameValid &&
+			isEmailValid &&
+			isTelValid &&
+			isAddressValid &&
+			isZipValid &&
+			isCityValid &&
+			isCountryValid &&
+			isEmoneyNumberValid &&
+			isEmoneyPinValid;
+	};
 
 	// $: console.log(`
 	// 	name: ${name}
@@ -56,7 +106,12 @@
 
 	const finalCheckout = (e) => {
 		e.preventDefault();
-		showOrderConfirmation = true;
+		validateData();
+		if (dataValid) {
+			showOrderConfirmation = true;
+		} else {
+			return;
+		}
 	};
 
 	let showOrderConfirmation = false;
@@ -130,6 +185,7 @@
 		<form
 			on:submit={finalCheckout}
 			in:fly={{ x: -100, duration: 450, delay: 300 }}
+			out:fly={{ x: 25, duration: 300 }}
 			class="checkout bg-white w-full rounded-[0.8rem] p-[2.4rem] flex flex-col gap-y-[3.2rem]
 			md:px-[2.8rem] md:py-[3rem] lg:px-[4.8rem] lg:py-[5.4rem]">
 			<h2
@@ -137,10 +193,6 @@
 				md:text-[3.2rem]">
 				checkout
 			</h2>
-
-			<!-- {#each inputSections.filter((s) => s.isPaymentSection === false) as section}
-				<InputSection {...section} onInput={(e) => console.log('working')}/>
-			{/each} -->
 
 			<div class="">
 				<h3
@@ -154,19 +206,22 @@
 						type="text"
 						placeholder="Alexei Ward"
 						value={name}
-						on:input={updateName} />
+						on:input={updateName}
+						isValid={isNameValid} />
 					<Input
 						name="Email Address"
 						type="email"
 						placeholder="alexei@mail.com"
 						value={email}
-						on:input={updateEmail} />
+						on:input={updateEmail}
+						isValid={isEmailValid} />
 					<Input
 						name="Phone Number"
 						type="tel"
 						placeholder="+1 202-555-0136"
 						value={tel}
-						on:input={updateTel} />
+						on:input={updateTel}
+						isValid={isTelValid} />
 				</div>
 			</div>
 			<div class="">
@@ -182,20 +237,23 @@
 						placeholder="1137 Williams Avenue"
 						width="full"
 						value={address}
-						on:input={updateAddress} />
-					<Input name="ZIP Code" type="text" placeholder="10001" value={zip} on:input={updateZip} />
+						on:input={updateAddress} 
+						isValid={isAddressValid}/>
+					<Input name="ZIP Code" type="text" placeholder="10001" value={zip} on:input={updateZip} isValid={isZipValid}/>
 					<Input
 						name="City"
 						type="text"
 						placeholder="New York"
 						value={city}
-						on:input={updateCity} />
+						on:input={updateCity} 
+						isValid={isCityValid}/>
 					<Input
 						name="Country"
 						type="text"
 						placeholder="United States"
 						value={country}
-						on:input={updateCountry} />
+						on:input={updateCountry} 
+						isValid={isCountryValid}/>
 				</div>
 			</div>
 			<div class="">
@@ -222,20 +280,22 @@
 					<div
 						id="info"
 						class="mb-[3.2rem] flex gap-y-[2.4rem] gap-x-[1.6rem] flex-wrap"
-						transition:fly={{ duration: 200, y: 100 }}>
+						transition:slide={{ duration: 200 }}>
 
 						<Input
 							name="e-Money Number"
 							type="number"
 							placeholder="238512381"
 							value={eMoneyNumber}
-							on:input={updateEmoneyNumber} />
+							on:input={updateEmoneyNumber} 
+							isValid={isEmoneyNumberValid}/>
 						<Input
 							name="e-Money PIN"
 							type="number"
 							placeholder="United States"
 							value={eMoneyPin}
-							on:input={updateEmoneyPin} />
+							on:input={updateEmoneyPin} 
+							isValid={isEmoneyPinValid}/>
 					</div>
 				{/if}
 			</div>
@@ -247,12 +307,18 @@
 
 		</form>
 
-		<div class="summary" in:fly={{ x: 25, duration: 300, delay: 500 }}>
+		<div
+			class="summary"
+			in:fly={{ x: 25, duration: 300, delay: 500 }}
+			out:fly={{ x: 25, duration: 300 }}>
 			<Summary />
 		</div>
 
-		<div class="info" in:fly={{ y: 25, duration: 300, delay: 750 }}>
-			{#if selectedPayment === 'eMoney' && $size === 'desktop'}
+		<div
+			class="info"
+			in:fly={{ x: 75, duration: 300, delay: 750 }}
+			out:fly={{ x: 75, duration: 300 }}>
+			{#if selectedPayment === 'cash' && $size === 'desktop'}
 				<div
 					transition:fly={{ x: 150, duration: 250 }}
 					class=" w-full h-full bg-white z-50 rounded-[0.8rem] md:right-[2.4rem] px-[2.8rem]
@@ -318,11 +384,3 @@
 	{/if}
 
 </section>
-
-
-<!-- User hovers over a link or user goes into a link
-
-	All html is rendered on server-side
-
-	Then the html is 'hydrated' -> JS is then added on top of HTML.
--->
