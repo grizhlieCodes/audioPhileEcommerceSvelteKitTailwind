@@ -1,7 +1,7 @@
 <script>
 	import UnitsCounter from '$lib/UI/UnitsCounter.svelte';
 	import Button from '$lib/UI/Button.svelte';
-	import { fly, fade } from 'svelte/transition';
+	import { fly, fade, slide } from 'svelte/transition';
 	import CartStore from '$lib/products/cartStore.js';
 	import { createEventDispatcher } from 'svelte';
 	const dispatch = createEventDispatcher();
@@ -45,6 +45,18 @@
 		tempQuantity = 0;
 	};
 
+	let showAddItemMessage = false
+
+
+	function checkout(){
+		if(cartEmpty){
+			showAddItemMessage = true
+		} else {
+			showAddItemMessage = false
+			dispatch('toggleCart')
+		}
+	}
+
 </script>
 
 <style>
@@ -80,6 +92,11 @@
 
 	{#if cartEmpty}
 		<h3 class=" text-[1.8rem] font-bold my-[6rem] text-center ">No items added yet 🛒😊🎁</h3>
+		
+		{#if showAddItemMessage}
+			 <h3 in:slide={{duration:250}} class=" text-[1.8rem] font-bold my-[6rem] text-center ">Please add an item to checkout!</h3>
+		{/if}
+		
 	{:else}
 		<!-- else content here -->
 
@@ -111,6 +128,6 @@
 		<h3 class=" text-[1.8rem] text-black font-bold">$ {total.toLocaleString()}</h3>
 	</div>
 
-	<Button content="checkout" on:click btnType="fullWidthPrimary" />
+	<Button content="checkout" on:click={checkout} btnType="fullWidthPrimary" link="/checkout" isDisabled={cartEmpty}/>
 
 </div>

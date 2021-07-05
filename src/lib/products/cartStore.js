@@ -26,7 +26,10 @@ const customCart = {
             return store
         })
     },
-    deleteAllItems: () => cart.set([]),
+    deleteAllItems: () => {
+        cart.set([])
+        localStorage.removeItem('productsStore')
+    },
     addNewItemOrUpdateExisting: (slug, quantity) => {
         let itemToBeUpdated = customCart.updateQuantityItemIfAlreadyInCart(slug, quantity)
         let itemToBeAdded = itemToBeUpdated === false

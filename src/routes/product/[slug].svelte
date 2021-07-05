@@ -16,7 +16,6 @@
 	import productStore from '$lib/products/products.js';
 	export async function load({ page }) {
 		const slug = page.params.slug;
-		console.log(slug);
 		const products = get(productStore);
 		let randomProducts = generateRandomProducts(slug, products);
 		const product = products.filter((p) => p.productSlug === slug)[0];
@@ -39,9 +38,14 @@
 	import ProductCatCards from '$lib/navigation/ProductCatCards.svelte';
 	import Button from '$lib/UI/Button.svelte';
 	import productCart from '$lib/products/cartStore.js';
-	
+	import { onMount } from 'svelte';
+
+	let pageReady = false;
+	onMount(() => {
+		pageReady = true;
+	});
 	import { getContext } from 'svelte';
-	$: title = product.displayName.toUpperCase()
+	$: title = product.displayName.toUpperCase();
 	let size = getContext('size');
 
 	let products = $data;
@@ -106,15 +110,13 @@
 	}
 </style>
 
-
-
 <svelte:head>
 	<title>Audiophile: {title}</title>
 </svelte:head>
 
 <section
 	class="w-full max-w-[111rem] mx-auto pt-[1.6rem] md:mb-[3.3rem] md:pt-[3.3rem] lg:pt-[7.9rem]
-	px-[2.4rem] md:px-[4rem] xl:px-0 mb-[12rem] lg:mb-[16rem]">
+	px-[2.4rem] md:px-[4rem] xl:px-0 mb-[12rem] lg:mb-[16rem] bg-white">
 
 	<a
 		sveltekit:prefetch
