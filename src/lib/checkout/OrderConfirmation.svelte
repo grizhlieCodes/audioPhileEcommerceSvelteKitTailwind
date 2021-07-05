@@ -24,17 +24,13 @@
 
     onDestroy(() => {
         CartStore.deleteAllItems()
-        console.log(`
-            Cart after destroy:
-            ${$CartStore}
-        `)
         dispatch('closeOrderConfirmation')
     })
 </script>
 
 <div class=" absolute inset-0 bg-black z-40 opacity-40 " transition:fade={{ duration: 250 }} />
 
-<div
+<div transition:fly={{x:100, duration: 250}}
 	class="modal fixed w-full max-w-[90%] bg-white z-50 top-2/4 left-2/4 transform -translate-x-2/4 -translate-y-2/4
 	md:max-w-[54rem] p-[3.2rem] md:p-[4.8rem] flex flex-col rounded-[0.8rem]">
 	<svg
