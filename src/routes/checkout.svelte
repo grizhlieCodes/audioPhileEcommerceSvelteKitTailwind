@@ -9,7 +9,8 @@
 	import isNotEmpty from '$lib/checkout/isNotEmpty';
 	import emailValid from '$lib/checkout/emailValid';
 	import userStore from '$lib/checkout/userStore.js';
-import OrderConfirmation from '$lib/checkout/OrderConfirmation.svelte';
+	import OrderConfirmation from '$lib/checkout/OrderConfirmation.svelte';
+	import cartStore from '$lib/products/cartStore.js'
 
 	const dispatch = createEventDispatcher();
 
@@ -143,17 +144,29 @@ import OrderConfirmation from '$lib/checkout/OrderConfirmation.svelte';
 		updateUserData();
 	};
 
-	let hideCheckout = true
+	let hideCheckout = false;
 
-	const finalCheckout = (e) => {
+	const confirmOrderClicked = (e) => {
 		e.preventDefault();
 		validateData();
 		if (dataValid) {
 			//Hide all grid items and show 'order-confirmation'
-			showOrderConfirmation = true;
+			hideCheckout = true;
+			// showOrderConfirmation = true;
 		} else {
 			return;
 		}
+	};
+
+	const finalCheckout = () => {
+
+		const options = {
+			top: 0,
+			left: 0,
+			behavior: 'smooth'
+		}
+		orderComplete = true;
+		window.scrollTo(options)
 	};
 
 	let orderComplete = false;
@@ -180,7 +193,6 @@ import OrderConfirmation from '$lib/checkout/OrderConfirmation.svelte';
 			updateInputsWithUserStoreOnLoad();
 		}
 	});
-
 </script>
 
 <style>
@@ -219,17 +231,16 @@ import OrderConfirmation from '$lib/checkout/OrderConfirmation.svelte';
 			gap: 3rem;
 		}
 
-		#checkout-section.order-confirmation {
-			grid: 
-			'link' min-content
-			'confirmation '1fr / 1fr;
-			place-items: center;
-		}
-
 		#back-button {
 			justify-self: start;
 		}
+	}
 
+	#checkout-section.order-confirmation {
+		grid:
+			'link' min-content
+			'confirmation ' 1fr / 1fr;
+		place-items: center;
 	}
 </style>
 
@@ -244,11 +255,13 @@ import OrderConfirmation from '$lib/checkout/OrderConfirmation.svelte';
 	</style>
 </svelte:head>
 <section
-	id="checkout-section" class:order-confirmation={hideCheckout}
+	id="checkout-section"
+	class:order-confirmation={hideCheckout}
 	class="w-full max-w-[111rem] mx-auto pt-[1.6rem] pb-[9.7rem] md:pb-[11.6rem] md:pt-[3.3rem]
 	lg:pt-[7.9rem] px-[2.4rem] md:px-[4rem] xl:px-0 lg:mb-0 lg:pb-[16rem] grid gap-[3.2rem]">
 
-	<a   id="back-button"
+	<a
+		id="back-button"
 		sveltekit:prefetch
 		href="/"
 		class=" text-[1.5rem] leading-[2.5rem] text-black opacity-50 hover:opacity-75 mb-[2.4rem] ">
@@ -257,7 +270,7 @@ import OrderConfirmation from '$lib/checkout/OrderConfirmation.svelte';
 
 	{#if contentReady && !hideCheckout}
 		<form
-			on:submit={finalCheckout}
+			on:submit={confirmOrderClicked}
 			in:fly={{ x: -100, duration: 450, delay: 300 }}
 			out:fly={{ x: 25, duration: 300 }}
 			class="checkout bg-white w-full rounded-[0.8rem] p-[2.4rem] flex flex-col gap-y-[3.2rem]
@@ -466,13 +479,17 @@ import OrderConfirmation from '$lib/checkout/OrderConfirmation.svelte';
 				</div>
 			{/if}
 		</div>
-
 	{:else if contentReady && hideCheckout}
-		<OrderConfirmation />
+		<OrderConfirmation on:saveForLater on:placeOrder={finalCheckout} />
 	{/if}
 
 	{#if orderComplete}
-		<OrderCompleted on:closeOrderConfirmation={() => (orderComplete = false)} />
+
+		<OrderCompleted
+			on:closeOrderConfirmation={() => {
+				orderComplete = false;
+			}} />
+
 	{/if}
 
 </section>
