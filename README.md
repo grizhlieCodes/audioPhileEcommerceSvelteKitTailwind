@@ -1,7 +1,7 @@
 
 # Frontend Mentor - Audiophile E-commerce Website
 
-![alt text](images/preview.png)
+![alt text](static/images/preview.png)
 
 Howdy!
 
