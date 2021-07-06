@@ -10,7 +10,7 @@
 	import emailValid from '$lib/checkout/emailValid';
 	import userStore from '$lib/checkout/userStore.js';
 	import OrderConfirmation from '$lib/checkout/OrderConfirmation.svelte';
-	import cartStore from '$lib/products/cartStore.js'
+	import cartStore from '$lib/products/cartStore.js';
 
 	const dispatch = createEventDispatcher();
 
@@ -159,14 +159,7 @@
 	};
 
 	const finalCheckout = () => {
-
-		const options = {
-			top: 0,
-			left: 0,
-			behavior: 'smooth'
-		}
 		orderComplete = true;
-		window.scrollTo(options)
 	};
 
 	let orderComplete = false;
@@ -184,6 +177,18 @@
 		selectedPayment = $userStore.selectedPayment;
 		eMoneyNumber = $userStore.eMoneyNumber;
 		eMoneyPin = $userStore.eMoneyPin;
+		validateData()
+		if(dataValid){
+			console.log(dataValid)
+			setTimeout(() => {
+				const options = {
+					top: document.body.scrollHeight,
+					left: 0,
+					behavior: 'smooth'
+				}
+				window.scrollTo(options)
+			},750)
+		}
 	};
 
 	onMount(() => {
@@ -405,7 +410,11 @@
 			<Button
 				content={selectedPayment === 'eMoney' ? 'Continue & Pay' : 'Continue'}
 				btnType="fullWidthPrimary"
-				type="submit" />
+				type="submit"
+				on:click={() => {
+					const options = { top: 0, left: 0, behavior: 'smooth' };
+					window.scrollTo(options);
+				}} />
 
 		</form>
 
@@ -484,12 +493,10 @@
 	{/if}
 
 	{#if orderComplete}
-
 		<OrderCompleted
 			on:closeOrderConfirmation={() => {
 				orderComplete = false;
 			}} />
-
 	{/if}
 
 </section>
