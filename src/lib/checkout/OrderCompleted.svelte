@@ -4,6 +4,7 @@
 	import { onDestroy, createEventDispatcher } from 'svelte';
 	import CartStore from '$lib/products/cartStore.js';
 	import Cart from '$lib/products/Cart.svelte';
+	import userStore from '$lib/checkout/userStore.js'
 
     const dispatch = createEventDispatcher();
 
@@ -24,6 +25,7 @@
 
     onDestroy(() => {
         CartStore.deleteAllItems()
+		userStore.deleteUserInfo()
         dispatch('closeOrderConfirmation')
     })
 </script>
@@ -97,6 +99,6 @@
             </div>
         </div>
 	</div>
-	<Button btnType="fullWidthPrimary" content="back to home" link="/" />
+	<Button btnType="fullWidthPrimary" content="back to home" link="/" on:click={dispatch('')}/>
 
 </div>
