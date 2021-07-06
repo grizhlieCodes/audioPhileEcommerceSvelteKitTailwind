@@ -1,5 +1,5 @@
 <script>
-	import {fly} from 'svelte/transition'
+	import { fly } from 'svelte/transition';
 
 	export let content,
 		btnType,
@@ -15,7 +15,7 @@
 	}
 </style>
 
-<div transition:fly={{x:100, duration: 200}}>
+<div transition:fly={{ x: 100, duration: 200 }}>
 
 	{#if btnType === 'primary'}
 		{#if link === ''}
@@ -32,6 +32,26 @@
 				sveltekit:prefetch
 				href={link}
 				class=" text-[1.3rem] font-bold uppercase bg-darkOrange px-[3.4rem] py-[1.5rem]
+				hover:bg-lightOrange text-white tracking-[1px] transition-all w-max block
+				group-hover:bg-lightOrange">
+				{content}
+			</a>
+		{/if}
+	{:else if btnType === 'grey'}
+		{#if link === ''}
+			<button
+				class="text-[1.3rem] font-bold uppercase bg-[#808080] px-[2.45rem] py-[1.5rem]
+				hover:bg-lightOrange text-white tracking-[1px] transition-all w-max"
+				on:click
+				{type}>
+				{content}
+			</button>
+		{:else}
+			<a
+				on:click
+				sveltekit:prefetch
+				href={link}
+				class=" text-[1.3rem] font-bold uppercase bg-[#808080] px-[2.45rem] py-[1.5rem]
 				hover:bg-lightOrange text-white tracking-[1px] transition-all w-max block
 				group-hover:bg-lightOrange">
 				{content}
