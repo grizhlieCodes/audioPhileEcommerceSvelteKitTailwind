@@ -3,7 +3,7 @@
 	import userStore from './userStore.js';
 	import productsStore from '$lib/products/cartStore.js';
     import Button from '$lib/UI/Button.svelte'
-    import {createEventDispatcher} from 'svelte'
+    import {createEventDispatcher, onMount} from 'svelte'
     const dispatch = createEventDispatcher();
 
 	let grandTotal = 50;
@@ -14,6 +14,15 @@
 		let itemTotal = quantity * price;
 		grandTotal = grandTotal + itemTotal;
 	});
+
+	onMount(() => {
+
+		
+		const orderConfirmation = document.querySelector('.order-confirmation')
+					const oConfPosition = orderConfirmation.getBoundingClientRect().top
+					const options = { top: oConfPosition - 50, left: 0, behavior: 'smooth' };
+					window.scrollTo(options);
+	})
 </script>
 
 <style>
@@ -26,7 +35,7 @@
 	class="order-confirmation w-full h-full bg-white p-[2.4rem] rounded-[8px] flex flex-col
 	items-start gap-y-[3.1rem] max-w-[60rem] sm:px-[11.5rem]">
 	<h2 class=" text-[1.8rem] font-bold tracking-[1.29px] text-black uppercase w-full text-center ">confirm order</h2>
-	<div id="items-list" class="top w-full min-h-52 flex flex-col flex-1">
+	<div id="items-list" class="top w-full min-h-52 flex flex-col flex-1 ">
 		{#each $productsStore as product, i}
 			<div class=" flex items-center gap-x-[1.6rem]" transition:slide={{ duration: 150 }}>
 				<img

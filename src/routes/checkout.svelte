@@ -425,10 +425,7 @@
 				content={selectedPayment === 'eMoney' ? 'Continue & Pay' : 'Continue'}
 				btnType="fullWidthPrimary"
 				type="submit"
-				on:click={() => {
-					const options = { top: 0, left: 0, behavior: 'smooth' };
-					window.scrollTo(options);
-				}} />
+				on:click />
 
 		</form>
 
