@@ -1,6 +1,8 @@
 
 # Frontend Mentor - Audiophile E-commerce Website
 
+![alt text](images/preview.png)
+
 Howdy!
 
 This was a fun little project. It was surprisingly quick to pull together after I realised that the products as well as the product pages were identical to each other. So I spent time creating templates more than anything.
@@ -22,7 +24,13 @@ KISS (Keep it simple, stupid). As always I avoid using anything I don't **need**
 - Building through 'templates'/routing with data: After studying the design I quickly realised that almost every page in the project was styled identically. So I opted to go for a solution where I use sveltekit routes and minimal ssr code to inject the correct content to either the product/<specific product name> or products/<specific products category> pages. This was great for 2 reasons:
     - Firstly because I realised how other websites (amazon, wordpress blogs etc) are built with data and 'templates' that simply inject the correct content into them. It didn't shock me at all but I always enjoy moments when the idea of something clicks with a real-life implementation by me.
     - Secondly because it was one of those solutions I wouldn't have thought of a few months ago. Having used/focused more on data and how to structure your projects around it is a great way to problem-solve. I only wish I looked towards these things sooner.
-- I opted to go slightly against the original UI for the checkout page. I thought it was more logical and flowed better (mostly about positioning of items in the page).
+- I optimised the customer journey ever so slightly. In the original design the
+  custom would select product/s, go to the checkout, input their details, click
+  buy and they were done. I added an additional step that confirms the order as
+  well as the customers address and gives the customer an option to edit their
+  details in case they were misspelled. 
+
+  
 
 ## What I've learned
 

@@ -215,6 +215,7 @@
 	onDestroy(() => {
 		hideFooterBottom.set(false);
 	});
+	
 </script>
 
 <style>
