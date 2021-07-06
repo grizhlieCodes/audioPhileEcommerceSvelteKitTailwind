@@ -183,13 +183,19 @@
 		if (dataValid) {
 			console.log(dataValid);
 			setTimeout(() => {
+				const button = document.querySelector('#continueToPaymentButton')
+				const buttonLocation = button.getBoundingClientRect().top
+				const buttonHeight = button.offsetHeight
+				const buttonHeightHalf = buttonHeight / 2
+				const viewportCenter = window.innerHeight / 2
+
 				const options = {
-					top: document.body.scrollHeight,
+					top: buttonLocation - viewportCenter + buttonHeightHalf ,
 					left: 0,
 					behavior: 'smooth'
 				};
 				window.scrollTo(options);
-			}, 750);
+			}, 500);
 		}
 	};
 
@@ -415,6 +421,7 @@
 			</div>
 
 			<Button
+				id="continueToPaymentButton"
 				content={selectedPayment === 'eMoney' ? 'Continue & Pay' : 'Continue'}
 				btnType="fullWidthPrimary"
 				type="submit"

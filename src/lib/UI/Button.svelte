@@ -5,7 +5,8 @@
 		btnType,
 		type = 'button',
 		link = '',
-		isDisabled = false;
+		isDisabled = false,
+		id = '';
 </script>
 
 <style>
@@ -87,7 +88,8 @@
 		</a>
 	{:else if btnType === 'fullWidthPrimary'}
 		{#if link !== ''}
-			<a
+			<a  
+				{id}
 				href={isDisabled ? '' : link}
 				class="block text-[1.3rem] font-bold uppercase bg-darkOrange px-[3.4rem] py-[1.5rem]
 				hover:bg-lightOrange text-white tracking-[1px] transition-all w-full text-center"
@@ -99,6 +101,7 @@
 		{:else}
 			<!-- else content here -->
 			<button
+				{id}
 				class="text-[1.3rem] font-bold uppercase bg-darkOrange px-[3.4rem] py-[1.5rem]
 				hover:bg-lightOrange text-white tracking-[1px] transition-all w-full text-center"
 				on:click
