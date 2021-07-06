@@ -32,7 +32,7 @@ KISS (Keep it simple, stupid). As always I avoid using anything I don't **need**
 
   
 
-## What I've learned
+## What I have learnt
 
 - Tailwind is pretty cool! I was really against using Tailwind. Mostly because of how it makes HTML look 'messy'. Whilst that still remains the case I was pleasantly surprised by how intuitive it became. Also the speed with which you can build components was welcomed.
 - Tailwind has some issues though... Main issue is that if Tailwind doesn't have something it takes quite a bit of figuring out as to how it can be implemented. But most of the time it's simply easier to go into your style tags and just add the necessary css. Any semi-complex grid structure? @supports (property:value)? Not there. Finally - I found myself writing worse HTML. This is an issue with ME not Tailwind but I fear that it could lead to this. Also not needing to think of 'class names' for elements can lead to the same issue and potential readability problems. Perhaps these are offset if you write 'realistically sized' components.
@@ -40,6 +40,3 @@ KISS (Keep it simple, stupid). As always I avoid using anything I don't **need**
 - Planning: It seems that during every project I lack the methodology to break the project down into small enough components. This leads to some time wasted as I end up rewriting code. So before starting a next project I will find a system that helps me plan the 'flow' of the page/app. Then I'll start implementing.
 - Much better use of the inspector tool: In the past I would have spent quite a lot of time in the code editor trying to understand what the CSS issue is. During this project I spent most of this time in the inspector and quickly found the things I missed/misunderstood. Took me 2 minutes to learn that display:flex actually gives display:block to its children. In the past I would have assumed this was a mistake of my own doing and wasted a great deal of time 😅...
 - Challenge UI! Currently I build projects solo. So I don't work with a designer although I dabbled in the field briefly. I think it's a great skill/focus for the developer to challenge any UI issues they see whilst reviewing the design and coding the project. I have done this in the last 2 projects and I felt the results were ideal after my fixes. And I guess as developers we can be the last frontier when it comes to good/bad UI. I'm not saying we can build it all without the necessary expertise of real pros but we should defenitely remain critical and vigilant of anything that may lessen user-experience. 
-
-## Bugs - none I found after initial wave of fixes.
-
