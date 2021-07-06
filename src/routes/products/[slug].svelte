@@ -13,7 +13,8 @@
 	import { getContext } from 'svelte';
 	import Button from '$lib/UI/Button.svelte';
 	import ProductCatCards from '$lib/navigation/ProductCatCards.svelte';
-	let size = getContext('size');
+	let size
+	// = getContext('size');
 
 	import data from '$lib/products/products.js';
 	export let slug;
@@ -29,11 +30,24 @@
 	onMount(() => {
 		pageReady = true;
 	});
+
+	let innerWidth
+
+	$: if(innerWidth >= 1024){
+		size = "desktop"
+	} else if (innerWidth >= 550){
+		size = "tablet"
+	} else {
+		size = "mobile"
+	}
+
 </script>
 
 <svelte:head>
 	<title>Audiophile: {title}</title>
 </svelte:head>
+
+<svelte:window bind:innerWidth={innerWidth} />
 
 <section
 	class=" flex flex-col items-center gap-y-[12rem] w-full max-w-[111rem] mx-auto pt-[16rem]
@@ -46,7 +60,7 @@
 				lg:even:flex-row-reverse lg:justify-between lg:gap-x-[12.5rem] ">
 
 				<img transition:fly={{x:-200, duration: 250, delay: 50}}
-					src="/images/category-{slug}/{$size}/image-{productCode}.jpg"
+					src="/images/category-{slug}/{size}/image-{productCode}.jpg"
 					alt=""
 					class=" w-full rounded-[0.8rem] h-[35.2rem] lg:w-[54rem] lg:h-[56rem] object-cover
 					object-center lg:flex-initial " />
