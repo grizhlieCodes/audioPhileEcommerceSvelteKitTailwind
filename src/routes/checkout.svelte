@@ -199,6 +199,10 @@
 		}
 	};
 
+	const editDetails = () => {
+		hideCheckout = false
+	}
+
 	onMount(() => {
 		hideFooterBottom.set(true)
 		contentReady = true;
@@ -500,7 +504,7 @@
 			{/if}
 		</div>
 	{:else if contentReady && hideCheckout}
-		<OrderConfirmation on:saveForLater on:placeOrder={finalCheckout} />
+		<OrderConfirmation on:editDetails={editDetails} on:placeOrder={finalCheckout} />
 	{/if}
 
 	{#if orderComplete}

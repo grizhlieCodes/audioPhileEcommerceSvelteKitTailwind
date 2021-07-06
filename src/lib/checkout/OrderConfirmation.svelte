@@ -81,9 +81,9 @@
 		class="buttons flex flex-col gap-y-[1.5rem] justify-between items-center w-full sm:flex-row ">
 		<Button
 			btnType="grey"
-			content="save for later"
-			on:click={() => dispatch('saveForLater')}
-			link="/" />
+			content="Edit Details"
+			on:click={() => dispatch('editDetails')}
+			 />
 		<Button btnType="primary" content="place order" on:click={() => dispatch('placeOrder')} />
 	</div>
 </div>
