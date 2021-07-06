@@ -3,8 +3,6 @@
 	import { getContext } from 'svelte';
 	let size = getContext('size');
 
-	export let showBottomAbout = true, currentTitle;
-
 	let socialLinks = ['facebook', 'twitter', 'instagram'];
 
 	let pages = [
@@ -25,13 +23,18 @@
 			link: '/products/earphones'
 		}
 	];
+
+
+	import hideFooterBottom from '$lib/checkout/hideFooterBottom.js'
+
+
 </script>
 
 <style>
 	/* your styles go here */
 </style>
 
-{#if currentTitle !== 'Checkout'}
+{#if !$hideFooterBottom}
 	<BottomAbout />
 {/if}
 

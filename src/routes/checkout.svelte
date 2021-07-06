@@ -3,7 +3,7 @@
 	import Radio from '$lib/checkout/RadioInput.svelte';
 	import { fly, slide } from 'svelte/transition';
 	import Summary from '$lib/checkout/Summary.svelte';
-	import { getContext, onMount, onDestroy, createEventDispatcher } from 'svelte';
+	import { getContext, onMount, onDestroy, createEventDispatcher, setContext } from 'svelte';
 	import Button from '$lib/UI/Button.svelte';
 	import OrderCompleted from '$lib/checkout/OrderCompleted.svelte';
 	import isNotEmpty from '$lib/checkout/isNotEmpty';
@@ -11,6 +11,8 @@
 	import userStore from '$lib/checkout/userStore.js';
 	import OrderConfirmation from '$lib/checkout/OrderConfirmation.svelte';
 	import cartStore from '$lib/products/cartStore.js';
+	import { writable } from 'svelte/store';
+	import hideFooterBottom from '$lib/checkout/hideFooterBottom.js'
 
 	const dispatch = createEventDispatcher();
 
@@ -177,26 +179,31 @@
 		selectedPayment = $userStore.selectedPayment;
 		eMoneyNumber = $userStore.eMoneyNumber;
 		eMoneyPin = $userStore.eMoneyPin;
-		validateData()
-		if(dataValid){
-			console.log(dataValid)
+		validateData();
+		if (dataValid) {
+			console.log(dataValid);
 			setTimeout(() => {
 				const options = {
 					top: document.body.scrollHeight,
 					left: 0,
 					behavior: 'smooth'
-				}
-				window.scrollTo(options)
-			},750)
+				};
+				window.scrollTo(options);
+			}, 750);
 		}
 	};
 
 	onMount(() => {
+		hideFooterBottom.set(true)
 		contentReady = true;
 		userStore.setUserFromLocalStorage();
 		if ($userStore) {
 			updateInputsWithUserStoreOnLoad();
 		}
+	});
+
+	onDestroy(() => {
+		hideFooterBottom.set(false);
 	});
 </script>
 
