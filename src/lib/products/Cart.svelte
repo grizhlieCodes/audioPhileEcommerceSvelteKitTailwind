@@ -3,6 +3,7 @@
 	import Button from '$lib/UI/Button.svelte';
 	import { fly, fade, slide } from 'svelte/transition';
 	import CartStore from '$lib/products/cartStore.js';
+	import userStore from '$lib/checkout/userStore.js'
 	import { createEventDispatcher } from 'svelte';
 	const dispatch = createEventDispatcher();
 
@@ -30,6 +31,7 @@
 	const deleteAllItems = () => {
 		total = 0;
 		CartStore.deleteAllItems();
+		userStore.deleteUserInfo()
 		dispatch('toggleCart');
 	};
 
