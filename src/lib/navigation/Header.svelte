@@ -193,14 +193,14 @@
 	{#if menuOpened}
 		<div
 			id="mobile-menu-container"
-			class="mobile-menu-container fixed top-[9rem] w-full left-0 h-auto z-30 bg-white
+			class="mobile-menu-container absolute top-[9rem] w-full left-0 h-auto z-30 bg-white
 			rounded-br-[8px] rounded-bl-[8px] px-[2.4rem] py-[3.5rem]"
 			transition:fade={{ duration: 150 }}>
 			<ProductCatCards on:click={toggleMenu} />
 		</div>
 
 		<div
-			class="z-5 fixed top-[9rem] left-0 w-full h-full bg-black opacity-30 z-20"
+			class="z-5 fixed top-[9rem] left-0 w-full h-full bg-black opacity-75 z-20"
 			on:click={toggleMenu}
 			transition:fade={{ duration: 150 }} />
 	{/if}
