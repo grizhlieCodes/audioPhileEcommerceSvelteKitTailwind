@@ -8,6 +8,17 @@ Howdy!
 This was a fun little project. It was surprisingly quick to pull together after I realised that the products as well as the product pages were identical to each other. So I spent time creating templates more than anything.
 
 ## Overview
+This was an [awesome challenge](https://www.frontendmentor.io/challenges/audiophile-ecommerce-website-C8cuSd_wx) from [Frontend Mentor](https://www.frontendmentor.io/home). It's a basic
+e-commerce store built with SvelteKit and TailwindCSS. I didn't connect it to
+any backend due to time limitations. I just wanted to create a smooth UI
+experience. If I would have spent more time on this I would have improved the
+interactivity, animations and added a backend of some sort along with
+authentication.
+
+### Links
+
+- [Live Project](https://audiophile-webstore-grizhlie.netlify.app/)
+- [Frontend Mentor Solution](https://www.frontendmentor.io/solutions/audiophile-project-built-with-sveltekit-tailwind-and-localstorage-B_GqJSDvW)
 
 ### Philosophy 
 KISS (Keep it simple, stupid). As always I avoid using anything I don't **need** to use. Although I did try Tailwind, more on that later.
